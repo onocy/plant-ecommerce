@@ -2,6 +2,9 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import Button from "@mui/material/Button";
 import Navbar from "@/components/Navbar";
+import Gallery from "@/components/Gallery";
+import Footer from "@/components/Footer";
+import Carousel from "@/components/Carousel";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,12 +19,11 @@ export default function Home() {
         <link href="/dist/output.css" rel="stylesheet" />
       </Head>
       <main>
-        <div>
+        <div className="flex flex-col h-screen justify-between">
           <Navbar />
-
-          <div className="text-center">Top Seller Carousel</div>
-          <div className="text-center">Gallery</div>
-          <div className="text-center">Footer</div>
+          <Carousel />
+          <Gallery />
+          <Footer />
         </div>
       </main>
     </>
