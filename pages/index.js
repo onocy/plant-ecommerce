@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Navbar from "@/components/Navbar";
 import Gallery from "@/components/Gallery";
 import Footer from "@/components/Footer";
-import Carousel from "@/components/Carousel";
+import HomeCarousel from "@/components/HomeCarousel";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +19,9 @@ export default function Home() {
         <link href="/dist/output.css" rel="stylesheet" />
       </Head>
       <main>
+        <Navbar />
         <div className="flex flex-col h-screen justify-between">
-          <Navbar />
-          <Carousel />
+          <HomeCarousel />
           <Gallery />
           <Footer />
         </div>
