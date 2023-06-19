@@ -5,11 +5,25 @@ const Carousel = () => {
   return (
     <div className="text-center">
       Carousel
-      <div>
+      <div className="flex gap-3">
         <Image
-          src="/../../public/images/plant-i.avif"
-          width="30"
-          height="30"
+          src="/images/plant-i.jpeg"
+          width="300"
+          height="300"
+          className=""
+          alt=""
+        />
+        <Image
+          src="/images/plant-ii.jpeg"
+          width="300"
+          height="300"
+          className=""
+          alt=""
+        />
+        <Image
+          src="/images/plant-iii.jpeg"
+          width="300"
+          height="300"
           className=""
           alt=""
         />
