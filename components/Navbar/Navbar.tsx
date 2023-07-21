@@ -12,12 +12,12 @@ const Navbar = () => {
   console.log(pathname, "pathname");
 
   return (
-    <nav className="flex justify-between p-5">
-      <Link href="/" className="flex">
-        <img src="/logo.svg" width="30" height="30" className="" alt="" />
-        <span className="ml-2">Rośliny</span>
+    <nav className="flex justify-between p-5 items-center">
+      <Link href="/" className="flex items-center">
+        <span className="ml-2 text-4xl uppercase pr-3">Rośliny</span>
+        <img src="/logo_ii.svg" width="50" height="50" className="" alt="" />
       </Link>
-      <ul className="flex gap-3">
+      <ul className="flex gap-3 uppercase">
         <li className={pathname == "/" && "underline"}>
           <Link href="/">Home</Link>
         </li>

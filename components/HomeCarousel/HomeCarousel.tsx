@@ -3,80 +3,39 @@ import Image from "next/image";
 import Carousel from "react-material-ui-carousel";
 import { Button } from "@mui/material";
 
+const imageSequences = [
+  ["/images/plant-i.jpeg", "/images/plant-ii.jpeg", "/images/plant-iii.jpeg"],
+  ["/images/plant-iii.jpeg", "/images/plant-i.jpeg", "/images/plant-ii.jpeg"],
+  ["/images/plant-ii.jpeg", "/images/plant-iii.jpeg", "/images/plant-i.jpeg"],
+];
+
+const CarouselContent = ({ images }) => (
+  <div className="flex justify-center gap-5">
+    {images.map((image, index) => (
+      <div className={`${index === 1 && "scale-1 z-10"} drop-shadow-md`}>
+        <Image
+          key={index}
+          src={image}
+          width="300"
+          height="300"
+          className="rounded-3xl"
+          alt=""
+        />
+      </div>
+    ))}
+  </div>
+);
+
 const HomeCarousel = () => {
   return (
     <div className="text-center">
-      <div className="text-gray-400 italic mb-3">Top Sellers</div>
+      <div className="text-gray-400 italic mb-3 tracking-widest">
+        Top Sellers
+      </div>
       <Carousel>
-        <div className="flex justify-center gap-5">
-          <Image
-            src="/images/plant-i.jpeg"
-            width="300"
-            height="300"
-            className=""
-            alt=""
-          />
-          <Image
-            src="/images/plant-ii.jpeg"
-            width="300"
-            height="300"
-            className=""
-            alt=""
-          />
-          <Image
-            src="/images/plant-iii.jpeg"
-            width="300"
-            height="300"
-            className=""
-            alt=""
-          />
-        </div>
-        <div className="flex justify-center gap-5">
-          <Image
-            src="/images/plant-iii.jpeg"
-            width="300"
-            height="300"
-            className=""
-            alt=""
-          />
-          <Image
-            src="/images/plant-i.jpeg"
-            width="300"
-            height="300"
-            className=""
-            alt=""
-          />
-          <Image
-            src="/images/plant-ii.jpeg"
-            width="300"
-            height="300"
-            className=""
-            alt=""
-          />
-        </div>
-        <div className="flex justify-center gap-5">
-          <Image
-            src="/images/plant-ii.jpeg"
-            width="300"
-            height="300"
-            className=""
-            alt=""
-          />
-          <Image
-            src="/images/plant-iii.jpeg"
-            width="300"
-            height="300"
-            className=""
-            alt=""
-          />
-          <Image
-            src="/images/plant-i.jpeg"
-            width="300"
-            height="300"
-            className=""
-            alt=""
-          />
-        </div>
+        {imageSequences.map((sequence, index) => (
+          <CarouselContent key={index} images={sequence} />
+        ))}
       </Carousel>
     </div>
   );
