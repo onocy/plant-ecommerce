@@ -1,19 +1,28 @@
+import Image from "next/image";
 import React from "react";
 
 const Gallery = () => {
+  const numOfImages = 10; // replace this with the actual number of images you have
+  const imagePaths = Array.from(
+    { length: numOfImages },
+    (_, i) => `/images/plant-${i + 1}.jpeg`
+  );
+
   return (
-    <div>
-      <h1 className="text-center">Gallery</h1>
-      <div className="grid grid-cols-3 gap-4 p-5">
-        <div className="bg-gray-200">1</div>
-        <div className="bg-gray-200">2</div>
-        <div className="bg-gray-200">3</div>
-        <div className="bg-gray-200">4</div>
-        <div className="bg-gray-200">5</div>
-        <div className="bg-gray-200">6</div>
-        <div className="bg-gray-200">7</div>
-        <div className="bg-gray-200">8</div>
-        <div className="bg-gray-200">9</div>
+    <div className="my-10">
+      <div className="text-gray-400 mb-3 tracking-widest text-center text-md">
+        Gallery
+      </div>
+      <div className="flex flex-wrap gap-3 align-stretch grow">
+        {imagePaths.map((imagePath, index) => (
+          <Image
+            key={index}
+            src={imagePath}
+            width={300}
+            height={300}
+            alt={`Plant ${index + 1}`}
+          />
+        ))}
       </div>
     </div>
   );

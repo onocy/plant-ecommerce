@@ -1,7 +1,11 @@
 import React from "react";
 
 const Footer = () => {
-  return <div className="text-center bg-gray-300 p-10">Footer</div>;
+  return (
+    <div className="text-center p-10 italic tracking-wider text-sm text-gray-500">
+      Made with ❤️ by Phillip Michalowski
+    </div>
+  );
 };
 
 export default Footer;

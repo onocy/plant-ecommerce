@@ -28,10 +28,8 @@ const CarouselContent = ({ images }) => (
 
 const HomeCarousel = () => {
   return (
-    <div className="text-center">
-      <div className="text-gray-400 italic mb-3 tracking-widest">
-        Top Sellers
-      </div>
+    <div className="text-center mb-4">
+      <div className="text-gray-400 mb-3 tracking-widest">Top Sellers</div>
       <Carousel>
         {imageSequences.map((sequence, index) => (
           <CarouselContent key={index} images={sequence} />
