@@ -1,14 +1,13 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
-import Button from "@mui/material/Button";
 import Navbar from "@/components/Navbar";
 import Gallery from "@/components/Gallery";
 import Footer from "@/components/Footer";
 import HomeCarousel from "@/components/HomeCarousel";
+import { supabase } from "/utils/supabase";
 
-const inter = Inter({ subsets: ["latin"] });
+export default function Home({ plants }) {
+  console.log({ plants });
 
-export default function Home() {
   return (
     <>
       <Head>
@@ -29,3 +28,13 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  const { data: plants } = await supabase.from("plants").select("*");
+
+  return {
+    props: {
+      plants,
+    },
+  };
+};
