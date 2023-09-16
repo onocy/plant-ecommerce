@@ -18,11 +18,9 @@ export default function Home({ plants }) {
         <link href="/dist/output.css" rel="stylesheet" />
       </Head>
       <main>
-        <Navbar />
         <div className="flex flex-col h-screen justify-between">
           <HomeCarousel />
           <Gallery />
-          <Footer />
         </div>
       </main>
     </>

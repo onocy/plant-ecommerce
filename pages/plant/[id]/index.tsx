@@ -5,9 +5,7 @@ import Footer from "@/components/Footer/Footer";
 const Plant = () => {
   return (
     <>
-      <Navbar />
       <div className="px-20">Single plant data</div>
-      <Footer />
     </>
   );
 };

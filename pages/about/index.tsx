@@ -6,7 +6,6 @@ import Footer from "@/components/Footer/Footer";
 const About = () => {
   return (
     <>
-      <Navbar />
       <div className="px-20">
         <div className="flex gap-4 mb-8">
           <Image src="/images/about-2.png" width="400" height="300" alt="" />
@@ -65,7 +64,6 @@ const About = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
