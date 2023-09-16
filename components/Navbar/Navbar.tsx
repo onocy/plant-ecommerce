@@ -9,7 +9,7 @@ const Navbar = () => {
 
   const { pathname } = useRouter();
 
-  console.log(pathname, "pathname");
+  // console.log(pathname, "pathname");
 
   return (
     <nav className="flex justify-between p-5 items-center">
