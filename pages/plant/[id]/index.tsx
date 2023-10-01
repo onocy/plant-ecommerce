@@ -15,7 +15,19 @@ const Plant = ({ id }) => {
 
   if (!currentPlant) return null;
 
-  const { name, description, price, main_image } = currentPlant;
+  const {
+    name,
+    description,
+    price,
+    main_image,
+    category,
+    light_requirement,
+    water_requirement,
+    temp_range_min,
+    temp_range_max,
+    pot_size,
+    care_level,
+  } = currentPlant;
 
   const rating = 4;
   return (
@@ -74,6 +86,14 @@ const Plant = ({ id }) => {
             </div>
             <div className="">Standard Pot</div>
             <div className="">${price}</div>
+            <div className="">---</div>
+            <div className="">{category}</div>
+            <div className="">{light_requirement} - light</div>
+            <div className="">{water_requirement} - water</div>
+            <div className="">{temp_range_min} - min</div>
+            <div className="">{temp_range_max} - max</div>
+            <div className="">{pot_size} - pot size</div>
+            <div className="">{care_level} - care_level</div>
             <div className="mt-3">
               {[...Array(rating)].map((_, index) => (
                 <StarIcon key={index} />
