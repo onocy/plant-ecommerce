@@ -15,10 +15,10 @@ const Navbar = () => {
         <Image src="/logo_ii.svg" width="50" height="50" className="" alt="" />
       </Link>
       <ul className="flex gap-3 uppercase">
-        <li className={pathname == "/" && "underline"}>
+        <li className={pathname == "/" && "underline underline-offset-4"}>
           <Link href="/">Home</Link>
         </li>
-        <li className={pathname == "/about" && "underline"}>
+        <li className={pathname == "/about" && "underline underline-offset-4"}>
           <Link href="/about">About Us</Link>
         </li>
         {user ? (
@@ -32,7 +32,9 @@ const Navbar = () => {
             <div className="text-xs">{user.email}</div>
           </div>
         ) : (
-          <li className={pathname == "/sign_in" && "underline"}>
+          <li
+            className={pathname == "/sign_in" && "underline underline-offset-4"}
+          >
             <Link href="/sign_in">Sign In</Link>
           </li>
         )}
