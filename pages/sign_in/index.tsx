@@ -29,8 +29,11 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSignIn}>
+    <div className="flex justify-center">
+      <form
+        onSubmit={handleSignIn}
+        className="flex flex-col w-2/5 bg-green-200 p-10 gap-3"
+      >
         <input
           type="email"
           placeholder="Email"

@@ -22,7 +22,15 @@ const Navbar = () => {
           <Link href="/about">About Us</Link>
         </li>
         {user ? (
-          <button onClick={signOut}>sign out</button>
+          <div>
+            <button
+              onClick={signOut}
+              className="border border-solid-1 p-2 uppercase"
+            >
+              Sign Out
+            </button>
+            <div className="text-xs">{user.email}</div>
+          </div>
         ) : (
           <li className={pathname == "/sign_in" && "underline"}>
             <Link href="/sign_in">Sign In</Link>

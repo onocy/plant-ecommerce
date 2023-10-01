@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Gallery from "@/components/Gallery";
 import Footer from "@/components/Footer";
 import HomeCarousel from "@/components/HomeCarousel";
-import { supabase } from "/utils/supabase";
+import { supabase } from "../utils/supabase";
 
 export default function Home({ plants }) {
   // console.log({ plants });
