@@ -6,11 +6,18 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Button from "@mui/material/Button";
 import StarIcon from "@mui/icons-material/Star";
 import Image from "next/image";
+import { usePlants } from "contexts/plantContext";
 
 const Plant = ({ id }) => {
   console.log("id in component", id);
   const [isCareOpen, setIsCareOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+  const { plants } = usePlants();
+
+  const currentPlant = plants?.find((plant) => plant.id === parseInt(id));
+
+  console.log(currentPlant, "current plant");
 
   const rating = 4;
   return (
@@ -24,7 +31,7 @@ const Plant = ({ id }) => {
           className="rounded-lg group-hover:blur-sm transition-all duration-250"
         />
 
-        <div className="pt-8 flex items-center w-80">
+        <div className="pt-8 flex items-center w-80 pb-3">
           <div className="flex-grow h-px bg-black"></div>
           <span className="px-4 text-gray-900 bg-white whitespace-nowrap">
             Related plants
