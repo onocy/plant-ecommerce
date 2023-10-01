@@ -7,9 +7,11 @@ Core Stack:
 - Tailwind
 - Supabase
 
-This is a personal project where the goal is to go from design -> deployed application of an eCommerce application using some newer technologies.
+This is a personal project where the goal is to go from a figma design that I put together to a fully deployed eCommerce application using some newer technologies.
 
 ![schema](assets/img/schema.png)
+
+I don't intend to finish the whole project in a single chunk, so I intend to group things into three core versions listed below.
 
 V1: Barebones application:
 
