@@ -4,12 +4,6 @@ import Link from "next/link";
 import { usePlants } from "contexts/plantContext";
 
 const Gallery = () => {
-  const numOfImages = 30; // replace this with the actual number of images you have
-  // const imagePaths = Array.from(
-  //   { length: numOfImages },
-  //   (_, i) => `/images/plant-${i + 1}.jpeg`
-  // );
-
   const { plants } = usePlants();
 
   return (
@@ -21,7 +15,7 @@ const Gallery = () => {
         {plants?.length > 0 &&
           plants.map((plant, index) => {
             return (
-              <Link key={index} href={`/plant/${index}`}>
+              <Link key={index} href={`/plant/${plant.id}`}>
                 <div className="relative group h-fit" key={index}>
                   <Image
                     src={`/images/${plant.main_image}`}

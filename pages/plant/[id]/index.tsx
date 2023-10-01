@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import Navbar from "@/components/Navbar/Navbar";
-import Footer from "@/components/Footer/Footer";
-import { supabase } from "../../../utils/supabase";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Button from "@mui/material/Button";
 import StarIcon from "@mui/icons-material/Star";
@@ -9,7 +6,6 @@ import Image from "next/image";
 import { usePlants } from "contexts/plantContext";
 
 const Plant = ({ id }) => {
-  console.log("id in component", id);
   const [isCareOpen, setIsCareOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
@@ -17,14 +13,16 @@ const Plant = ({ id }) => {
 
   const currentPlant = plants?.find((plant) => plant.id === parseInt(id));
 
-  console.log(currentPlant, "current plant");
+  if (!currentPlant) return null;
+
+  const { name, description, price, main_image } = currentPlant;
 
   const rating = 4;
   return (
     <div className="flex mt-10">
       <div className="flex-1 flex items-center flex-col">
         <Image
-          src={"/images/plant-1.jpeg"}
+          src={`/images/${main_image}`}
           width={300}
           height={300}
           alt={`Plant 1`}
@@ -71,9 +69,11 @@ const Plant = ({ id }) => {
       <div className="flex flex-1 flex-col pr-10">
         <div className="flex justify-between">
           <div>
-            <div className="">Ficus Elastica (Rubber fig)</div>
+            <div className="">
+              {name} ({description})
+            </div>
             <div className="">Standard Pot</div>
-            <div className="">$24.99</div>
+            <div className="">${price}</div>
             <div className="mt-3">
               {[...Array(rating)].map((_, index) => (
                 <StarIcon key={index} />
@@ -145,13 +145,6 @@ const Plant = ({ id }) => {
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  // const { data: plant } = await supabase
-  //   .from("plants")
-  //   .select("*")
-  //   .eq("id", id)
-  //   .single();
-
-  console.log(id);
 
   return {
     props: {

@@ -32,8 +32,6 @@ const CarouselContent = ({ images }) => (
 const HomeCarousel = () => {
   const { plants } = usePlants();
 
-  console.log(plants);
-
   return (
     <div className="text-center mb-4">
       <div className="text-gray-400 mb-3 tracking-widest">Top Sellers</div>
