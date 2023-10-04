@@ -23,6 +23,9 @@ const CarouselContent = ({ plants }) => (
 
 const HomeCarousel = () => {
   const { plants } = usePlants();
+
+  if (!plants) return null;
+
   const carouselPlants = plants.slice(0, 9);
 
   // Group plants in sets of 3
