@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
         <CartProvider initialCart={pageProps.cart}>
           <PlantProvider initialPlants={pageProps.plants}>
             <div className="flex flex-col min-h-screen">
-              <div className="flex-grow">
+              <div className="flex-grow overflow-auto">
                 {showNavbarAndFooter && <Navbar />}
                 <Component {...pageProps} />
               </div>

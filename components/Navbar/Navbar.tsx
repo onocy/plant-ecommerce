@@ -38,6 +38,7 @@ const Navbar = () => {
             <Link href="/sign_in">Sign In</Link>
           </li>
         )}
+        <Link href="/cart">Cart</Link>
       </ul>
     </nav>
   );

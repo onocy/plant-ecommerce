@@ -1,5 +1,4 @@
-import React, { use } from "react";
-
+import React from "react";
 import { useState } from "react";
 import { supabase } from "utils/supabase";
 import { useRouter } from "next/router";
@@ -11,6 +10,7 @@ import Image from "next/image";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorText, setErrorText] = useState("");
   const { setUser } = useUser();
 
   const router = useRouter();
@@ -23,22 +23,33 @@ const SignIn = () => {
       password,
     });
 
-    if (data) {
+    if (error) {
+      setErrorText(error.message);
+    } else if (data) {
       setUser(data.user);
       router.push("/"); // Redirect to home page
     } else {
-      console.error("Sign-in error: ", error);
+      console.error("Sign-in error: An unexpected error occurred");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#A8AD9A]">
+    <div className="flex justify-center items-center h-screen relative">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/sign_in_background.png"
+          fill
+          style={{ objectFit: "cover", objectPosition: "center" }}
+          priority={true}
+          quality={100}
+          alt=""
+        />
+      </div>
       <form
         onSubmit={handleSignIn}
-        className="flex flex-col w-2/5 min-w-min rounded-xl bg-white p-10 gap-3 items-center"
+        className="flex flex-col w-96 min-w-fit rounded-xl bg-white p-10 gap-3 items-center z-10"
       >
         <Link href="/" className="flex items-center">
-          <span className="ml-2 text-4xl uppercase pr-3">Rośliny</span>
           <Image
             src="/logo_ii.svg"
             width="50"
@@ -46,7 +57,9 @@ const SignIn = () => {
             className=""
             alt=""
           />
+          <span className="ml-2 mt-3 text-4xl uppercase pr-3">Rośliny</span>
         </Link>
+        <div>{errorText}</div>
         <input
           type="email"
           placeholder="Email"
@@ -74,4 +87,5 @@ const SignIn = () => {
     </div>
   );
 };
+
 export default SignIn;

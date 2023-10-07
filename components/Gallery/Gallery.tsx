@@ -11,7 +11,7 @@ const Gallery = () => {
       <div className="text-gray-400 mb-3 tracking-widest text-center text-md">
         Gallery
       </div>
-      <div className="flex flex-wrap gap-3 align-stretch grow">
+      <div className="flex flex-wrap gap-3 align-stretch justify-center">
         {plants?.length > 0 &&
           plants.map((plant, index) => {
             return (
