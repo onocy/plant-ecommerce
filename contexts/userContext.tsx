@@ -1,19 +1,35 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "../utils/supabase";
+import { getUserCart } from "utils/cart";
 
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [cartId, setCartId] = useState(null);
 
   useEffect(() => {
     async function fetchUser() {
-      const { data: data, error } = await supabase.auth.getUser();
+      const { data: userData, error } = await supabase.auth.getUser();
       if (error) {
         console.error(error);
         return;
       }
-      setUser(data?.user ?? null);
+      setUser(userData?.user ?? null);
+
+      // If the user is found, fetch the associated cartId
+      if (userData?.user) {
+        const cartData = await getUserCart(userData.user.id);
+
+        console.log(cartData, "cartData");
+
+        // if (cartError) {
+        //   console.error(cartError);
+        //   return;
+        // }
+
+        setCartId(cartData?.id ?? null);
+      }
     }
 
     console.log(user, "user");
@@ -26,12 +42,13 @@ export function UserProvider({ children }) {
 
   async function signOut() {
     setUser(null);
+    setCartId(null); // Clear the cartId on sign out
     const { error } = await supabase.auth.signOut();
     console.log(error, "error with signout");
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, signOut }}>
+    <UserContext.Provider value={{ user, setUser, signOut, cartId, setCartId }}>
       {children}
     </UserContext.Provider>
   );

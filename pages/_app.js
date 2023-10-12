@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import { PlantProvider } from "../contexts/plantContext";
-import { CartProvider } from "../contexts/cartContext";
 import { UserProvider } from "../contexts/userContext";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
@@ -27,17 +26,15 @@ export default function App({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
-        <CartProvider initialCart={pageProps.cart}>
-          <PlantProvider initialPlants={pageProps.plants}>
-            <div className="flex flex-col min-h-screen">
-              <div className="flex-grow overflow-auto">
-                {showNavbarAndFooter && <Navbar />}
-                <Component {...pageProps} />
-              </div>
-              {showNavbarAndFooter && <Footer />}
+        <PlantProvider initialPlants={pageProps.plants}>
+          <div className="flex flex-col min-h-screen">
+            <div className="flex-grow overflow-auto">
+              {showNavbarAndFooter && <Navbar />}
+              <Component {...pageProps} />
             </div>
-          </PlantProvider>
-        </CartProvider>
+            {showNavbarAndFooter && <Footer />}
+          </div>
+        </PlantProvider>
       </UserProvider>
     </ThemeProvider>
   );

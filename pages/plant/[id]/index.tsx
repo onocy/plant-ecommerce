@@ -4,10 +4,20 @@ import Button from "@mui/material/Button";
 import StarIcon from "@mui/icons-material/Star";
 import Image from "next/image";
 import { usePlants } from "contexts/plantContext";
+import { addItemToCart } from "utils/cart";
+import { useUser } from "contexts/userContext";
 
 const Plant = ({ id }) => {
   const [isCareOpen, setIsCareOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const { user, cartId } = useUser();
+
+  console.log(user, "user");
+
+  const handleAddToCart = async () => {
+    console.log("adding to cart");
+    await addItemToCart(cartId, user?.id, id, 1);
+  };
 
   const { plants } = usePlants();
 
@@ -101,7 +111,9 @@ const Plant = ({ id }) => {
             </div>
           </div>
           <div className="mr-5">
-            <Button variant="outlined">Add to cart</Button>
+            <Button variant="outlined" onClick={handleAddToCart}>
+              Add to cart
+            </Button>
           </div>
         </div>
         <div className="border-solid border-b border-b-black p-3"></div>
