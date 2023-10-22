@@ -30,6 +30,27 @@ const Cart = () => {
     fetchData();
   }, [fetchData]);
 
+  const calculateSubtotal = () => {
+    return cart?.cart_items.reduce((total, item) => {
+      return total + item.quantity * item.plants.price;
+    }, 0);
+  };
+
+  if (cart === null) {
+    return <>Loading...</>;
+  }
+
+  if (cart?.cart_items?.length === 0) {
+    return (
+      <div className="flex justify-center flex-col items-center">
+        <img alt="" src="/images/empty_cart.svg" width={500} height={500} />
+        <div>No items in your cart</div>
+      </div>
+    );
+  }
+
+  console.log(cart);
+
   return (
     <>
       <div className="flex gap-3 justify-between">
@@ -119,13 +140,13 @@ const Cart = () => {
         </div>
         <div className="flex-1">
           <div className="font-bold mb-2">Summary</div>
-          <div className="mb-2">Subtotals</div>
+          <div className="mb-2">Subtotal: {calculateSubtotal()}</div>
           <div className="mb-2">Tax</div>
           <div className="mb-2">Coupon / Promo Code</div>
-          <div className="font-bold mb-2">Total</div>
-          <button className="bg-green-500 text-white px-4 py-2 rounded">
+          <div className="font-bold mb-2">Total: {calculateSubtotal()}</div>
+          <Button variant="contained" onClick={() => console.log("checkout")}>
             Checkout
-          </button>
+          </Button>
         </div>
       </div>
     </>
