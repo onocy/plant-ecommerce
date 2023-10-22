@@ -1,53 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { usePlants } from "contexts/plantContext";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { fetchCartForUser } from "utils/cart";
+import { deleteFromCart, fetchCartData } from "utils/cart";
 import { useUser } from "contexts/userContext";
-
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Cart = () => {
   const [cart, setCart] = useState(null);
-  const { plants } = usePlants();
 
-  const { user } = useUser();
+  // Update to use an array of quantities or adjust the cart quantities on the spot
+  const [quantity, setQuantity] = useState(1);
+
+  const { cartId } = useUser();
+
+  const fetchData = useCallback(async () => {
+    if (cartId) {
+      const userCart = await fetchCartData(cartId);
+      setCart(userCart);
+    }
+  }, [cartId, setCart]);
+
+  const deleteItem = async (id) => {
+    await deleteFromCart(id);
+    fetchData();
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const userCart = await fetchCartForUser(user?.id);
-      setCart(userCart);
-    };
-
     fetchData();
-  }, [user]);
-
-  console.log(cart, "cart");
-
-  const somePlants = plants?.slice(0, 3);
+  }, [fetchData]);
 
   return (
     <>
@@ -58,58 +39,79 @@ const Cart = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"></th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Plant
+                      Name
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                      Category
+                      Quantity
                     </th>
                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
                       Price
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                      Amount
-                    </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
-                      Actions
-                    </th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase"></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {somePlants?.map((plant, index) => (
-                    <tr key={index}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex gap-4 justify-start">
+                  {cart?.cart_items?.map((cartItem, index) => {
+                    const increaseQuantity = () =>
+                      setQuantity((prev) => prev + 1);
+                    const decreaseQuantity = () =>
+                      setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
+                    return (
+                      <tr key={cartItem.id}>
+                        <td className="whitespace-nowrap text-right w-52 min-w-full">
                           <Image
-                            src={`/images/${plant.main_image}`}
+                            src={`/images/${cartItem.plants.main_image}`}
                             width={100}
                             height={100}
                             alt={`Plant ${index + 1}`}
                           />
-                          <div className="flex items-center">{plant.name}</div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right">
-                        {plant.category}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right">
-                        {plant.price}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right">
-                        {plant.stock}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right">
-                        <div className="flex gap-2 justify-end">
-                          <button className="bg-red-500 text-white px-4 py-2 rounded">
-                            Delete
-                          </button>
-                          <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                            Save
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex gap-4 justify-start">
+                            <div className="flex items-center">
+                              {cartItem?.plants?.name}
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right">
+                          <div className="flex items-center">
+                            <Button
+                              onClick={decreaseQuantity}
+                              className="bg-gray-200"
+                            >
+                              -
+                            </Button>
+                            <TextField
+                              type="number"
+                              value={quantity}
+                              className="mx-2"
+                              InputProps={{ inputProps: { min: 1 } }}
+                            />
+                            <Button
+                              onClick={increaseQuantity}
+                              className="bg-gray-200"
+                            >
+                              +
+                            </Button>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right">
+                          {cartItem.plants.price}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right">
+                          <div className="flex gap-2 justify-end">
+                            <CloseIcon
+                              className="cursor-pointer"
+                              onClick={() => deleteItem(cartItem.id)}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

@@ -12,11 +12,10 @@ const Plant = ({ id }) => {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { user, cartId } = useUser();
 
-  console.log(user, "user");
-
   const handleAddToCart = async () => {
-    console.log("adding to cart");
-    await addItemToCart(cartId, user?.id, id, 1);
+    if (user?.id) {
+      await addItemToCart(cartId, user.id, id, 1);
+    }
   };
 
   const { plants } = usePlants();

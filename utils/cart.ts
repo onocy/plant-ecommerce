@@ -1,6 +1,6 @@
 import { supabase } from "../utils/supabase";
 
-export const fetchCartForUser = async (userId: number) => {
+export const fetchCartData = async (cartId: any) => {
   const { data, error } = await supabase
     .from("cart")
     .select(
@@ -16,7 +16,7 @@ export const fetchCartForUser = async (userId: number) => {
       )
     `
     )
-    .eq("user_id", userId)
+    .eq("id", cartId)
     .single();
 
   if (error) throw error;
@@ -25,7 +25,7 @@ export const fetchCartForUser = async (userId: number) => {
 
 export const getUserCart = async (userId: string) => {
   const { data } = await supabase
-    .from("carts")
+    .from("cart")
     .select("id")
     .eq("user_id", userId)
     .single();
@@ -42,31 +42,29 @@ export const addItemToCart = async (
 
   // If no cartId is provided, create a new cart for the user
   if (!cartId) {
-    console.log(userId, "userId");
     const { data, error } = await supabase
       .from("cart")
-      .insert({ user_id: parseInt(userId) })
-      .single();
+      .upsert({ user_id: userId })
+      .select();
 
     if (error) throw error;
 
-    console.log(data, "data");
-    if (data) {
-      trueCartId = (data as any).id;
+    if (!error) {
+      trueCartId = data[0].id;
     }
   }
+
   const { data, error } = await supabase
     .from("cart_items")
-    .insert({
+    .upsert({
       cart_id: trueCartId,
       plant_id: plantId,
       quantity,
     })
-    .single();
+    .select();
 
   if (error) throw error;
 
-  console.log(data, "data 2");
   return data;
 };
 
@@ -87,6 +85,16 @@ export const updateItemQuantity = async (
   const { data, error } = await supabase
     .from("cart_items")
     .update({ quantity: newQuantity })
+    .eq("id", itemId);
+
+  if (error) throw error;
+  return data;
+};
+
+export const deleteFromCart = async (itemId: number) => {
+  const { data, error } = await supabase
+    .from("cart_items")
+    .delete()
     .eq("id", itemId);
 
   if (error) throw error;
