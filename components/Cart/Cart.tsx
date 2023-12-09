@@ -56,7 +56,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className="flex flex-wrap gap-3 justify-between mx-3">
+      <div className="flex flex-wrap gap-3 justify-between mx-3 mt-3">
         <div className="flex-1 card shadow-xl px-5 py-3 gap-3 bg-white divide-y divide-gray-200 h-full">
           {cart?.cart_items?.map((cartItem, index) => {
             const increaseQuantity = () => setQuantity((prev) => prev + 1);

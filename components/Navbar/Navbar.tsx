@@ -9,12 +9,12 @@ const Navbar = () => {
   const { user, signOut } = useUser();
 
   return (
-    <nav className="flex justify-between p-5 items-center">
+    <nav className="flex justify-between p-5 items-center flex-wrap ">
       <Link href="/" className="flex items-center">
         <span className="ml-2 text-4xl uppercase pr-3">Rośliny</span>
         <Image src="/logo_ii.svg" width="50" height="50" className="" alt="" />
       </Link>
-      <ul className="flex gap-3 uppercase">
+      <ul className="flex gap-3 uppercase pt-5 sm:pt-0">
         <li className={pathname == "/" && "underline underline-offset-4"}>
           <Link href="/">Home</Link>
         </li>

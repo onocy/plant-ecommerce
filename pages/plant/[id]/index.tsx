@@ -17,6 +17,7 @@ const Plant = ({ id }) => {
   const [isCareOpen, setIsCareOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { user, cartId } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
 
   // async function listImages() {
   //   const { data, error } = await supabase.storage
@@ -43,7 +44,10 @@ const Plant = ({ id }) => {
 
   const handleAddToCart = async () => {
     if (user?.id) {
-      await addItemToCart(cartId, user.id, id, 1);
+      setIsLoading(true);
+      await addItemToCart(cartId, user.id, id, 1).then(() => {
+        setIsLoading(false);
+      });
     }
   };
 
@@ -69,107 +73,113 @@ const Plant = ({ id }) => {
 
   const rating = 4;
   return (
-    <div className="flex mt-10">
+    <div className="flex mt-10 flex-wrap gap-3">
       <div className="flex-1 flex items-center flex-col">
-        <Image
-          src={`/images/${main_image}`}
-          width={300}
-          height={300}
-          alt={`Plant 1`}
-          className="rounded-lg group-hover:blur-sm transition-all duration-250"
-        />
-
-        <div className="pt-8 flex items-center w-80 pb-3">
-          <div className="flex-grow h-px bg-black"></div>
-          <span className="px-4 text-gray-900 bg-white whitespace-nowrap">
-            Related plants
-          </span>
-          <div className="flex-grow h-px bg-black"></div>
-        </div>
-        <div className="flex gap-3">
-          <div>
-            <Image
-              src={"/images/plant-3.jpeg"}
-              width={100}
-              height={100}
-              alt={`Plant 1`}
-              className="rounded-lg group-hover:blur-sm transition-all duration-250"
-            />
+        <div className="card glass p-4 items-center">
+          <Image
+            src={`/images/${main_image}`}
+            width={300}
+            height={300}
+            alt={`Plant 1`}
+            className="rounded-lg group-hover:blur-sm transition-all duration-250"
+          />
+          <div className="pt-8 flex items-center w-80 pb-3">
+            <div className="flex-grow h-px bg-gray-400"></div>
+            <span className="px-4 text-gray-900 whitespace-nowrap">
+              Related plants
+            </span>
+            <div className="flex-grow h-px bg-gray-400"></div>
           </div>
-          <div>
-            <Image
-              src={"/images/plant-2.jpeg"}
-              width={100}
-              height={100}
-              alt={`Plant 1`}
-              className="rounded-lg group-hover:blur-sm transition-all duration-250"
-            />
-          </div>
-          <div>
-            <Image
-              src={"/images/plant-4.jpeg"}
-              width={100}
-              height={100}
-              alt={`Plant 1`}
-              className="rounded-lg group-hover:blur-sm transition-all duration-250"
-            />
+          <div className="flex gap-3">
+            <div>
+              <Image
+                src={"/images/plant-3.jpeg"}
+                width={100}
+                height={100}
+                alt={`Plant 1`}
+                className="rounded-lg group-hover:blur-sm transition-all duration-250"
+              />
+            </div>
+            <div>
+              <Image
+                src={"/images/plant-2.jpeg"}
+                width={100}
+                height={100}
+                alt={`Plant 1`}
+                className="rounded-lg group-hover:blur-sm transition-all duration-250"
+              />
+            </div>
+            <div>
+              <Image
+                src={"/images/plant-4.jpeg"}
+                width={100}
+                height={100}
+                alt={`Plant 1`}
+                className="rounded-lg group-hover:blur-sm transition-all duration-250"
+              />
+            </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-1 flex-col pr-10">
-        <div className="flex justify-between">
+      <div className="flex-1 flex flex-col pr-10 card shadow-xl bg-white p-5 md:mr-10">
+        <div className="flex-col md:flex-row gap-3 md:gap-0 md:justify-between flex">
           <div>
-            <div className="">
+            <div className="font-bold">
               {name} ({description})
             </div>
-            <div className="">Pot Size: {pot_size}"</div>
+            <div className="">Pot Size: {pot_size}</div>
             <div className="">Standard Pot</div>
             <div className="">${price}</div>
-            <div className="border-solid border-b border-b-black p-3"></div>
-            <div className="flex gap-3">
-              <GrassIcon />
-              Plant Type:
-              <div className="">{category}</div>
-            </div>
-            <div className="flex gap-3">
-              <FlareIcon />
-              Required Light:
-              <div className="">{light_requirement}</div>
-            </div>
-            <div className="flex gap-3">
-              <WaterDropIcon />
-              Required Water:
-              <div className="">{water_requirement}</div>
-            </div>
-            <div className="flex gap-3">
-              <ThermostatIcon />
-              Temperature Minimum:
-              <div className="">{temp_range_min}</div>
-            </div>
-            <div className="flex gap-3">
-              <ThermostatIcon />
-              Temperature Maximum:
-              <div className="">{temp_range_max}</div>
-            </div>
-            <div className="flex gap-3">
-              <ChildFriendlyIcon />
-              Care Level:
-              <div className="">{care_level}</div>
-            </div>
+            <div className="border-solid border-b border-b-gray-400 pt-2"></div>
             <div className="mt-3">
-              {[...Array(rating)].map((_, index) => (
-                <StarIcon key={index} />
-              ))}
+              <div className="flex gap-3">
+                <GrassIcon />
+                Plant Type:
+                <div className="">{category}</div>
+              </div>
+              <div className="flex gap-3">
+                <FlareIcon />
+                Required Light:
+                <div className="">{light_requirement}</div>
+              </div>
+              <div className="flex gap-3">
+                <WaterDropIcon />
+                Required Water:
+                <div className="">{water_requirement}</div>
+              </div>
+              <div className="flex gap-3">
+                <ThermostatIcon />
+                Temperature Minimum:
+                <div className="">{temp_range_min}</div>
+              </div>
+              <div className="flex gap-3">
+                <ThermostatIcon />
+                Temperature Maximum:
+                <div className="">{temp_range_max}</div>
+              </div>
+              <div className="flex gap-3">
+                <ChildFriendlyIcon />
+                Care Level:
+                <div className="">{care_level}</div>
+              </div>
+              <div className="mt-3">
+                {[...Array(rating)].map((_, index) => (
+                  <StarIcon key={index} />
+                ))}
+              </div>
             </div>
           </div>
-          <div className="mr-5">
-            <Button variant="outlined" onClick={handleAddToCart}>
-              Add to cart
-            </Button>
+          <div>
+            <button className="btn uppercase" onClick={handleAddToCart}>
+              {isLoading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                <div>Add to cart</div>
+              )}
+            </button>
           </div>
-          <button className="btn">Button</button>
         </div>
-        <div className="border-solid border-b border-b-black p-3"></div>
+        <div className="border-solid border-b border-b-gray-400 p-3"></div>
         <div className="mt-3">
           <div className="mb-4 relative">
             <button
