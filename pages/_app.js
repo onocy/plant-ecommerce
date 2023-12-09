@@ -27,12 +27,14 @@ export default function App({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <UserProvider>
         <PlantProvider initialPlants={pageProps.plants}>
-          <div className="flex flex-col min-h-screen">
-            <div className="flex-grow overflow-auto">
-              {showNavbarAndFooter && <Navbar />}
-              <Component {...pageProps} />
+          <div data-theme="cupcake">
+            <div className="flex flex-col min-h-screen">
+              <div className="flex-grow overflow-auto">
+                {showNavbarAndFooter && <Navbar />}
+                <Component {...pageProps} />
+              </div>
+              {showNavbarAndFooter && <Footer />}
             </div>
-            {showNavbarAndFooter && <Footer />}
           </div>
         </PlantProvider>
       </UserProvider>
