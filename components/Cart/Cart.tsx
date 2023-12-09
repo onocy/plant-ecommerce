@@ -110,7 +110,7 @@ const Cart = () => {
             );
           })}
         </div>
-        <div className="flex-1 card shadow-xl p-5 gap-1 m-1 bg-white justify-between">
+        <div className="flex-1 card shadow-xl p-5 gap-1 m-1 bg-white justify-between h-96">
           <div className="mb-2 text-lg font-bold">Summary</div>
           <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
             <div>Subtotal:</div>
@@ -126,7 +126,10 @@ const Cart = () => {
             <div>Total:</div>
             <div>{calculateSubtotal()}</div>
           </div>
-          <Button variant="contained" onClick={() => console.log("checkout")}>
+          <Button
+            className="btn btn-primary"
+            onClick={() => console.log("checkout")}
+          >
             Checkout
           </Button>
         </div>

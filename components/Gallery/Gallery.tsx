@@ -17,12 +17,15 @@ const Gallery = () => {
       <div className="text-gray-400 mb-3 tracking-widest text-center text-md">
         Gallery
       </div>
-      <div className="flex flex-wrap gap-3 align-stretch justify-center">
+      <div className="flex flex-wrap gap-3 justify-center">
         {plants?.length > 0 &&
           plants.map((plant, index) => {
             return (
-              <div className="card glass p-4" key={index}>
-                <div className="relative group h-fit" key={index}>
+              <div
+                className="card glass p-4 items-center text-center"
+                key={index}
+              >
+                <div className="relative group" key={plant.id}>
                   <Image
                     src={`/images/${plant.main_image}`}
                     width={300}
@@ -31,8 +34,8 @@ const Gallery = () => {
                     className="rounded-lg group-hover:blur-sm transition-all duration-250"
                   />
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 invisible group-hover:visible scale-110 transition-all duration-200">
-                    <Link key={index} href={`/plant/${plant.id}`}>
-                      <CropFreeIcon />
+                    <Link key={plant.id} href={`/plant/${plant.id}`}>
+                      <CropFreeIcon fontSize="large" />
                     </Link>
                     <button
                       onClick={() =>
@@ -47,14 +50,16 @@ const Gallery = () => {
                       {isLoading ? (
                         <span className="loading loading-spinner"></span>
                       ) : (
-                        <ShoppingCartIcon />
+                        <ShoppingCartIcon fontSize="large" className="ml-4" />
                       )}
                     </button>
                   </div>
                 </div>
-                <div>{plant.name}</div>
-                <div>{plant.description}</div>
-                <div>{plant.price}</div>
+                <div className="mt-3">
+                  <div className="font-bold">{plant.name}</div>
+                  <div className="text-sm">{plant.description}</div>
+                  <div>${plant.price}</div>
+                </div>
               </div>
             );
           })}
