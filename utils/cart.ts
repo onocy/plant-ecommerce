@@ -23,6 +23,20 @@ export const fetchCartData = async (cartId: any) => {
   return data;
 };
 
+export const handleAddToCart = async ({
+  user,
+  cartId,
+  plantId,
+  setIsLoading,
+}) => {
+  if (user?.id) {
+    setIsLoading(true);
+    await addItemToCart(cartId, user.id, plantId, 1).then(() => {
+      setIsLoading(false);
+    });
+  }
+};
+
 export const getUserCart = async (userId: string) => {
   const { data } = await supabase
     .from("cart")

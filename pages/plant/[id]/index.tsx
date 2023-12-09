@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import StarIcon from "@mui/icons-material/Star";
 import Image from "next/image";
 import { usePlants } from "contexts/plantContext";
-import { addItemToCart } from "utils/cart";
+import { addItemToCart, handleAddToCart } from "utils/cart";
 import { useUser } from "contexts/userContext";
 import FlareIcon from "@mui/icons-material/Flare";
 import GrassIcon from "@mui/icons-material/Grass";
@@ -41,15 +41,6 @@ const Plant = ({ id }) => {
   // useEffect(() => {
   //   listImages();
   // }, []);
-
-  const handleAddToCart = async () => {
-    if (user?.id) {
-      setIsLoading(true);
-      await addItemToCart(cartId, user.id, id, 1).then(() => {
-        setIsLoading(false);
-      });
-    }
-  };
 
   const { plants } = usePlants();
 
@@ -170,7 +161,12 @@ const Plant = ({ id }) => {
             </div>
           </div>
           <div>
-            <button className="btn uppercase" onClick={handleAddToCart}>
+            <button
+              className="btn uppercase"
+              onClick={() =>
+                handleAddToCart({ user, cartId, plantId: id, setIsLoading })
+              }
+            >
               {isLoading ? (
                 <span className="loading loading-spinner"></span>
               ) : (

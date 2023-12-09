@@ -1,10 +1,16 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePlants } from "contexts/plantContext";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CropFreeIcon from "@mui/icons-material/CropFree";
+import { useUser } from "contexts/userContext";
+import { handleAddToCart } from "utils/cart";
 
 const Gallery = () => {
   const { plants } = usePlants();
+  const { user, cartId } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="my-10">
@@ -15,7 +21,7 @@ const Gallery = () => {
         {plants?.length > 0 &&
           plants.map((plant, index) => {
             return (
-              <Link key={index} href={`/plant/${plant.id}`}>
+              <div className="card glass p-4" key={index}>
                 <div className="relative group h-fit" key={index}>
                   <Image
                     src={`/images/${plant.main_image}`}
@@ -25,11 +31,31 @@ const Gallery = () => {
                     className="rounded-lg group-hover:blur-sm transition-all duration-250"
                   />
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 invisible group-hover:visible scale-110 transition-all duration-200">
-                    <div>{plant.name}</div>
-                    <div>{plant.description}</div>
+                    <Link key={index} href={`/plant/${plant.id}`}>
+                      <CropFreeIcon />
+                    </Link>
+                    <button
+                      onClick={() =>
+                        handleAddToCart({
+                          user,
+                          cartId,
+                          plantId: plant?.id,
+                          setIsLoading,
+                        })
+                      }
+                    >
+                      {isLoading ? (
+                        <span className="loading loading-spinner"></span>
+                      ) : (
+                        <ShoppingCartIcon />
+                      )}
+                    </button>
                   </div>
                 </div>
-              </Link>
+                <div>{plant.name}</div>
+                <div>{plant.description}</div>
+                <div>{plant.price}</div>
+              </div>
             );
           })}
       </div>
