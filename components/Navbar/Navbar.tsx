@@ -12,7 +12,7 @@ const Navbar = () => {
   const cartPath = pathname.includes("/cart");
 
   return (
-    <nav className="flex justify-between p-5 items-center flex-wrap ">
+    <nav className="flex justify-between p-5 items-center flex-wrap sticky top-0 z-50 backdrop-blur-sm border border-b-gray-50">
       <Link href="/" className="flex items-center">
         <span className="ml-2 text-4xl uppercase pr-3">Rośliny</span>
         <Image src="/logo_ii.svg" width="50" height="50" className="" alt="" />
@@ -45,6 +45,7 @@ const Navbar = () => {
                 <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                  onClick={signOut}
                 >
                   Sign Out ({user.email})
                 </a>

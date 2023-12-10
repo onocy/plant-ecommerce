@@ -28,12 +28,15 @@ export const handleAddToCart = async ({
   cartId,
   plantId,
   setIsLoading,
+  router,
 }) => {
   if (user?.id) {
     setIsLoading(true);
     await addItemToCart(cartId, user.id, plantId, 1).then(() => {
       setIsLoading(false);
     });
+  } else {
+    router.push("/signIn");
   }
 };
 

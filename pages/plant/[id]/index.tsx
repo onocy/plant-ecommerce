@@ -4,20 +4,22 @@ import Button from "@mui/material/Button";
 import StarIcon from "@mui/icons-material/Star";
 import Image from "next/image";
 import { usePlants } from "contexts/plantContext";
-import { addItemToCart, handleAddToCart } from "utils/cart";
+import { handleAddToCart } from "utils/cart";
 import { useUser } from "contexts/userContext";
 import FlareIcon from "@mui/icons-material/Flare";
 import GrassIcon from "@mui/icons-material/Grass";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import ChildFriendlyIcon from "@mui/icons-material/ChildFriendly";
-import { supabase } from "utils/supabase";
+// import { supabase } from "utils/supabase";
+import { useRouter } from "next/router";
 
 const Plant = ({ id }) => {
   const [isCareOpen, setIsCareOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { user, cartId } = useUser();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   // async function listImages() {
   //   const { data, error } = await supabase.storage
@@ -164,7 +166,13 @@ const Plant = ({ id }) => {
             <button
               className="btn uppercase"
               onClick={() =>
-                handleAddToCart({ user, cartId, plantId: id, setIsLoading })
+                handleAddToCart({
+                  user,
+                  cartId,
+                  plantId: id,
+                  setIsLoading,
+                  router,
+                })
               }
             >
               {isLoading ? (

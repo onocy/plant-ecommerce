@@ -6,11 +6,13 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CropFreeIcon from "@mui/icons-material/CropFree";
 import { useUser } from "contexts/userContext";
 import { handleAddToCart } from "utils/cart";
+import { useRouter } from "next/router";
 
 const Gallery = () => {
   const { plants } = usePlants();
   const { user, cartId } = useUser();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   return (
     <div className="my-10">
@@ -35,7 +37,7 @@ const Gallery = () => {
                   />
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 invisible group-hover:visible scale-110 transition-all duration-200">
                     <Link key={plant.id} href={`/plant/${plant.id}`}>
-                      <CropFreeIcon fontSize="large" />
+                      <CropFreeIcon fontSize="large" className="text-white" />
                     </Link>
                     <button
                       onClick={() =>
@@ -44,13 +46,17 @@ const Gallery = () => {
                           cartId,
                           plantId: plant?.id,
                           setIsLoading,
+                          router,
                         })
                       }
                     >
                       {isLoading ? (
                         <span className="loading loading-spinner"></span>
                       ) : (
-                        <ShoppingCartIcon fontSize="large" className="ml-4" />
+                        <ShoppingCartIcon
+                          fontSize="large"
+                          className="ml-4 text-white"
+                        />
                       )}
                     </button>
                   </div>
