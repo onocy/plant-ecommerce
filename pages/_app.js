@@ -9,7 +9,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   const showNavbarAndFooter =
-    router.pathname !== "/sign_in" && router.pathname !== "/sign_up";
+    router.pathname !== "/signIn" && router.pathname !== "/signUp";
 
   const showBackButton = router.pathname !== "/" && showNavbarAndFooter;
 
