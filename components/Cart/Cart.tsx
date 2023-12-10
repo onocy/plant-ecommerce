@@ -20,14 +20,14 @@ const Cart = () => {
     setLoading(false);
   }, [cartId, setCart]);
 
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   const deleteItem = async (id) => {
     await deleteFromCart(id);
     fetchData();
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
 
   const calculateSubtotal = () => {
     return cart?.cart_items.reduce((total, item) => {
@@ -47,8 +47,6 @@ const Cart = () => {
       </div>
     );
   }
-
-  console.log(cart);
 
   return (
     <>
@@ -113,18 +111,18 @@ const Cart = () => {
             );
           })}
         </div>
-        <div className="flex-1 card shadow-xl p-5 gap-1 m-1 bg-white justify-between h-96">
-          <div className="mb-2 text-lg font-bold">Summary</div>
-          <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
+        <div className="flex-1 card shadow-xl p-5 gap-1 m-1 bg-white justify-between h-48">
+          {/* <div className="mb-2 text-lg font-bold">Summary</div> */}
+          {/* <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
             <div>Subtotal:</div>
             <div>{calculateSubtotal()}</div>
-          </div>
-          <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
+          </div> */}
+          {/* <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
             <div>Tax:</div>
           </div>
           <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
             <div>Coupon / Promo Code:</div>
-          </div>
+          </div> */}
           <div className="font-bold pb-3 mb-2  flex justify-between">
             <div>Total:</div>
             <div>{calculateSubtotal()}</div>
