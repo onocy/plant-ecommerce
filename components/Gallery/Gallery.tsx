@@ -18,6 +18,16 @@ const Gallery = () => {
     <div className="my-10">
       <div className="text-gray-400 mb-3 tracking-widest text-center text-md">
         Gallery
+        <div className="mt-5">
+          <select className="select select-sm select-bordered w-full max-w-xs">
+            <option disabled selected>
+              Sort by
+            </option>
+            <option>Price - High to Low</option>
+            <option>Price - Low to High</option>
+            <option>Name</option>
+          </select>
+        </div>
       </div>
       <div className="flex flex-wrap gap-3 justify-center">
         {plants?.length > 0 &&
