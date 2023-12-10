@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Carousel from "react-multi-carousel";
 import { usePlants } from "../../contexts/plantContext";
 import "react-multi-carousel/lib/styles.css";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CropFreeIcon from "@mui/icons-material/CropFree";
+import Link from "next/link";
 
 const responsive = {
   desktop: {
@@ -24,6 +27,7 @@ const responsive = {
 
 const HomeCarousel = () => {
   const { plants } = usePlants();
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!plants) return null;
 
@@ -49,14 +53,30 @@ const HomeCarousel = () => {
         itemClass="flex justify-center"
       >
         {plants.map((plant, index) => (
-          <Image
-            key={index}
-            src={`/images/${plant.main_image}`}
-            width="300"
-            height="300"
-            className={`drop-shadow-md rounded-3xl`}
-            alt=""
-          />
+          // <Link href={`/plant/${plant.id}`} key={plant.id}>
+          <div className="relative group" key={plant.id}>
+            <Image
+              key={index}
+              src={`/images/${plant.main_image}`}
+              width="300"
+              height="300"
+              className="rounded-lg group-hover:blur-sm transition-all duration-250"
+              alt=""
+            />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 invisible group-hover:visible scale-110 transition-all duration-200">
+              <Link key={plant.id} href={`/plant/${plant.id}`}>
+                <CropFreeIcon fontSize="large" />
+              </Link>
+              <button>
+                {isLoading ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  <ShoppingCartIcon fontSize="large" className="ml-4" />
+                )}
+              </button>
+            </div>
+          </div>
+          // </Link>
         ))}
       </Carousel>
     </div>
