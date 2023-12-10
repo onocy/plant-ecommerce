@@ -3,6 +3,7 @@ import Image from "next/image";
 import Carousel from "react-multi-carousel";
 import { usePlants } from "../../contexts/plantContext";
 import "react-multi-carousel/lib/styles.css";
+import Link from "next/link";
 
 const responsive = {
   desktop: {
@@ -49,14 +50,16 @@ const HomeCarousel = () => {
         itemClass="flex justify-center"
       >
         {plants.map((plant, index) => (
-          <Image
-            key={index}
-            src={`/images/${plant.main_image}`}
-            width="300"
-            height="300"
-            className={`drop-shadow-md rounded-3xl`}
-            alt=""
-          />
+          <Link key={plant.id} href={`/plant/${plant.id}`}>
+            <Image
+              key={index}
+              src={`/images/${plant.main_image}`}
+              width="300"
+              height="300"
+              className={`drop-shadow-md rounded-3xl`}
+              alt=""
+            />
+          </Link>
         ))}
       </Carousel>
     </div>

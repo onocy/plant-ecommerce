@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { deleteFromCart, fetchCartData } from "utils/cart";
+import { deleteFromCart, fetchCartData, updateItemQuantity } from "utils/cart";
 import { useUser } from "contexts/userContext";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -9,10 +9,6 @@ import CloseIcon from "@mui/icons-material/Close";
 const Cart = () => {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  // Update to use an array of quantities or adjust the cart quantities on the spot
-  const [quantity, setQuantity] = useState(1);
-
   const { cartId } = useUser();
 
   const fetchData = useCallback(async () => {
@@ -59,9 +55,16 @@ const Cart = () => {
       <div className="flex flex-wrap gap-3 justify-between mx-3 mt-3">
         <div className="flex-1 card shadow-xl px-5 py-3 gap-3 bg-white divide-y divide-gray-200 h-full">
           {cart?.cart_items?.map((cartItem, index) => {
-            const increaseQuantity = () => setQuantity((prev) => prev + 1);
-            const decreaseQuantity = () =>
-              setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+            const increaseQuantity = async () => {
+              await updateItemQuantity(cartItem.id, cartItem.quantity + 1);
+              fetchData();
+            };
+
+            const decreaseQuantity = async () => {
+              if (cartItem.quantity === 1) return;
+              await updateItemQuantity(cartItem.id, cartItem.quantity - 1);
+              fetchData();
+            };
 
             return (
               <div
@@ -91,7 +94,7 @@ const Cart = () => {
                     </Button>
                     <TextField
                       type="number"
-                      value={quantity}
+                      value={cartItem.quantity}
                       className="mx-2"
                       InputProps={{ inputProps: { min: 1 } }}
                     />
