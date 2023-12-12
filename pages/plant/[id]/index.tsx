@@ -11,9 +11,10 @@ import GrassIcon from "@mui/icons-material/Grass";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import ChildFriendlyIcon from "@mui/icons-material/ChildFriendly";
-// import { supabase } from "utils/supabase";
+import { supabase } from "utils/supabase";
 import { useRouter } from "next/router";
 import { useCart } from "contexts/cartContext";
+import Link from "next/link";
 
 const Plant = ({ id }) => {
   const [isCareOpen, setIsCareOpen] = useState(false);
@@ -22,6 +23,8 @@ const Plant = ({ id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { updateCart } = useCart();
+
+  const [relatedPlants, setRelatedPlants] = useState([]);
 
   // async function listImages() {
   //   const { data, error } = await supabase.storage
@@ -46,9 +49,61 @@ const Plant = ({ id }) => {
   //   listImages();
   // }, []);
 
+  const getRelatedPlants = async (plantId) => {
+    console.log(plantId, "plantId");
+    try {
+      const { data, error } = await supabase
+        .from("related_plants")
+        .select(
+          `
+        id,
+        related_plant:related_plant_id (
+          id,
+          name,
+          description,
+          price,
+          stock,
+          category,
+          care_level,
+          light_requirement,
+          water_requirement,
+          temp_range_min,
+          temp_range_max,
+          main_image,
+          pot_size
+        )
+      `
+        )
+        .eq("plant_id", plantId);
+
+      if (error) {
+        throw error;
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching related plants:", error);
+      return null;
+    }
+  };
+
   const { plants } = usePlants();
 
   const currentPlant = plants?.find((plant) => plant.id === parseInt(id));
+
+  useEffect(() => {
+    const fetchRelatedPlants = async () => {
+      try {
+        if (!currentPlant) return;
+        const related = await getRelatedPlants(currentPlant?.id);
+        setRelatedPlants(related);
+      } catch (error) {
+        console.error("Error fetching related plants:", error);
+      }
+    };
+
+    fetchRelatedPlants();
+  }, [currentPlant]);
 
   if (!currentPlant) return null;
 
@@ -86,33 +141,23 @@ const Plant = ({ id }) => {
             <div className="flex-grow h-px bg-gray-400"></div>
           </div>
           <div className="flex gap-3">
-            <div>
-              <Image
-                src={"/images/plant-3.jpeg"}
-                width={100}
-                height={100}
-                alt={`Plant 1`}
-                className="rounded-lg group-hover:blur-sm transition-all duration-250"
-              />
-            </div>
-            <div>
-              <Image
-                src={"/images/plant-2.jpeg"}
-                width={100}
-                height={100}
-                alt={`Plant 1`}
-                className="rounded-lg group-hover:blur-sm transition-all duration-250"
-              />
-            </div>
-            <div>
-              <Image
-                src={"/images/plant-4.jpeg"}
-                width={100}
-                height={100}
-                alt={`Plant 1`}
-                className="rounded-lg group-hover:blur-sm transition-all duration-250"
-              />
-            </div>
+            {relatedPlants?.map((plant) => (
+              <Link href={`/plant/${plant?.related_plant?.id}`} key={plant.id}>
+                <div className="card glass p-3 text-center w-[8rem]">
+                  <Image
+                    src={`/images/${plant.related_plant?.main_image}`}
+                    width={100}
+                    height={100}
+                    alt={`Plant 1`}
+                    className="rounded-lg group-hover:blur-sm transition-all duration-250"
+                  />
+                  <div className="pt-3 flex-wrap">
+                    {plant.related_plant?.name}
+                  </div>
+                  <div>{plant.related_plant?.price}</div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

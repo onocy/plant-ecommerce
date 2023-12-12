@@ -4,8 +4,6 @@ import HomeCarousel from "@/components/HomeCarousel";
 import { supabase } from "../utils/supabase";
 
 export default function Home({ plants }) {
-  console.log(plants, "plants in index");
-
   return (
     <>
       <Head>
@@ -27,12 +25,10 @@ export default function Home({ plants }) {
 
 export const getServerSideProps = async () => {
   const { data: plants } = await supabase.from("plants").select("*");
-  const { data: cart } = await supabase.from("cart").select("*");
 
   return {
     props: {
       plants,
-      cart,
     },
   };
 };
