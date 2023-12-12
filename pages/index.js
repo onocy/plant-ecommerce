@@ -1,12 +1,10 @@
 import Head from "next/head";
-import Navbar from "@/components/Navbar";
 import Gallery from "@/components/Gallery";
-import Footer from "@/components/Footer";
 import HomeCarousel from "@/components/HomeCarousel";
 import { supabase } from "../utils/supabase";
 
 export default function Home({ plants }) {
-  // console.log({ plants });
+  console.log(plants, "plants in index");
 
   return (
     <>
@@ -27,7 +25,7 @@ export default function Home({ plants }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const { data: plants } = await supabase.from("plants").select("*");
   const { data: cart } = await supabase.from("cart").select("*");
 

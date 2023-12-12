@@ -11,6 +11,7 @@ export function UserProvider({ children }) {
   useEffect(() => {
     async function fetchUser() {
       const { data: userData, error } = await supabase.auth.getUser();
+
       if (error) {
         console.error(error);
         return;
@@ -21,18 +22,16 @@ export function UserProvider({ children }) {
       if (userData?.user) {
         const cartData = await getUserCart(userData.user.id);
 
-        console.log(cartData, "cartData");
-
         // if (cartError) {
         //   console.error(cartError);
         //   return;
         // }
 
+        console.log(cartData, "cartData");
+
         setCartId(cartData?.id ?? null);
       }
     }
-
-    console.log(user, "user");
 
     if (!user) {
       console.log("getting user");
