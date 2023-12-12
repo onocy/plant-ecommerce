@@ -77,7 +77,7 @@ const Cart = () => {
                     alt={`Plant ${index + 1}`}
                   />
                 </div>
-                <div className="px-6 py-4">
+                <div className="px-6 py-4 w-56">
                   <div className="flex justify-start flex-col">
                     <div className="font-bold">{cartItem?.plants?.name}</div>
                     <div className="whitespace-nowrap">
@@ -125,7 +125,7 @@ const Cart = () => {
           </div> */}
           <div className="font-bold pb-3 mb-2  flex justify-between">
             <div>Total:</div>
-            <div>{calculateSubtotal()}</div>
+            <div>${calculateSubtotal()}</div>
           </div>
           <Button
             className="btn btn-primary"

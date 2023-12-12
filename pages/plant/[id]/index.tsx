@@ -114,7 +114,7 @@ const Plant = ({ id }) => {
           </div>
         </div>
       </div>
-      <div className="flex-1 flex flex-col pr-10 card shadow-xl bg-white p-5 md:mr-10">
+      <div className="flex-1 flex flex-col pr-10 card shadow-xl bg-white p-5 md:mr-10 mb-5">
         <div className="flex-col md:flex-row gap-3 md:gap-0 md:justify-between flex">
           <div>
             <div className="font-bold">
