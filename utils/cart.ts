@@ -1,3 +1,4 @@
+import { useCart } from "contexts/cartContext";
 import { supabase } from "../utils/supabase";
 
 export const fetchCartData = async (cartId: any) => {
@@ -29,10 +30,11 @@ export const handleAddToCart = async ({
   plantId,
   setIsLoading,
   router,
+  updateCart,
 }) => {
   if (user?.id) {
     setIsLoading(true);
-    await addItemToCart(cartId, user.id, plantId, 1).then(() => {
+    await addItemToCart(cartId, user.id, plantId, 1, updateCart).then(() => {
       setIsLoading(false);
     });
   } else {
@@ -53,7 +55,8 @@ export const addItemToCart = async (
   cartId: number,
   userId: string,
   plantId: number,
-  quantity: number
+  quantity: number,
+  updateCart: ({ cartId }) => void
 ) => {
   let trueCartId = cartId;
 
@@ -88,16 +91,10 @@ export const addItemToCart = async (
 
   if (error) throw error;
 
-  return data;
-};
+  if (!error) {
+    updateCart({ cartId: trueCartId });
+  }
 
-export const removeItemFromCart = async (itemId: number) => {
-  const { data, error } = await supabase
-    .from("cart_items")
-    .delete()
-    .eq("id", itemId);
-
-  if (error) throw error;
   return data;
 };
 
@@ -114,12 +111,21 @@ export const updateItemQuantity = async (
   return data;
 };
 
-export const deleteFromCart = async (itemId: number) => {
+export const deleteFromCart = async (
+  itemId: number,
+  cartId: number,
+  updateCart: ({ cartId }) => void
+) => {
   const { data, error } = await supabase
     .from("cart_items")
     .delete()
     .eq("id", itemId);
 
   if (error) throw error;
+
+  if (!error) {
+    updateCart({ cartId });
+  }
+
   return data;
 };

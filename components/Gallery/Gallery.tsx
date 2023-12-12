@@ -7,6 +7,7 @@ import CropFreeIcon from "@mui/icons-material/CropFree";
 import { useUser } from "contexts/userContext";
 import { handleAddToCart } from "utils/cart";
 import { useRouter } from "next/router";
+import { useCart } from "contexts/cartContext";
 
 const SortOptions = {
   PRICE_HIGH_TO_LOW: "Price - High to Low",
@@ -19,6 +20,7 @@ const Gallery = () => {
   const { user, cartId } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { updateCart } = useCart();
 
   const [sortOption, setSortOption] = useState("");
 
@@ -92,6 +94,7 @@ const Gallery = () => {
                           plantId: plant?.id,
                           setIsLoading,
                           router,
+                          updateCart,
                         })
                       }
                     >

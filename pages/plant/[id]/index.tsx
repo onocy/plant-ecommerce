@@ -13,6 +13,7 @@ import ThermostatIcon from "@mui/icons-material/Thermostat";
 import ChildFriendlyIcon from "@mui/icons-material/ChildFriendly";
 // import { supabase } from "utils/supabase";
 import { useRouter } from "next/router";
+import { useCart } from "contexts/cartContext";
 
 const Plant = ({ id }) => {
   const [isCareOpen, setIsCareOpen] = useState(false);
@@ -20,6 +21,7 @@ const Plant = ({ id }) => {
   const { user, cartId } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { updateCart } = useCart();
 
   // async function listImages() {
   //   const { data, error } = await supabase.storage
@@ -172,6 +174,7 @@ const Plant = ({ id }) => {
                   plantId: id,
                   setIsLoading,
                   router,
+                  updateCart,
                 })
               }
             >

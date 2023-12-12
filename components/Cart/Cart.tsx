@@ -1,38 +1,28 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { deleteFromCart, fetchCartData, updateItemQuantity } from "utils/cart";
+import { deleteFromCart, updateItemQuantity } from "utils/cart";
 import { useUser } from "contexts/userContext";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import { useCart } from "contexts/cartContext";
 
 const Cart = () => {
-  const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(false);
   const { cartId } = useUser();
-
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    if (cartId) {
-      const userCart = await fetchCartData(cartId);
-      setCart(userCart);
-    }
-    setLoading(false);
-  }, [cartId, setCart]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  const { cart, updateCart } = useCart();
 
   const deleteItem = async (id) => {
-    await deleteFromCart(id);
-    fetchData();
+    await deleteFromCart(id, cartId, updateCart);
+    updateCart({ cartId });
   };
 
   const calculateSubtotal = () => {
-    return cart?.cart_items.reduce((total, item) => {
-      return total + item.quantity * item.plants.price;
-    }, 0);
+    return cart?.cart_items
+      .reduce((total, item) => {
+        return total + item.quantity * item.plants.price;
+      }, 0)
+      .toFixed(2);
   };
 
   if (cart === null && loading) {
@@ -55,13 +45,13 @@ const Cart = () => {
           {cart?.cart_items?.map((cartItem, index) => {
             const increaseQuantity = async () => {
               await updateItemQuantity(cartItem.id, cartItem.quantity + 1);
-              fetchData();
+              updateCart({ cartId });
             };
 
             const decreaseQuantity = async () => {
               if (cartItem.quantity === 1) return;
               await updateItemQuantity(cartItem.id, cartItem.quantity - 1);
-              fetchData();
+              updateCart({ cartId });
             };
 
             return (

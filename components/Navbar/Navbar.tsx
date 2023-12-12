@@ -6,27 +6,15 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
-import { fetchCartData } from "utils/cart";
+import { useCart } from "contexts/cartContext";
 
 const Navbar = () => {
   const router = useRouter();
   const { pathname } = router;
-  const { user, signOut, cartId } = useUser();
-  const [microCart, setMicroCart] = useState(null);
+  const { user, signOut } = useUser();
+  const { cart } = useCart();
 
   const cartPath = pathname.includes("/cart");
-
-  const fetchData = useCallback(async () => {
-    if (cartId) {
-      const userCart = await fetchCartData(cartId);
-      setMicroCart(userCart);
-    }
-  }, [cartId, setMicroCart]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -61,7 +49,7 @@ const Navbar = () => {
             {/* Microcart */}
             <div className="absolute hidden group-hover:block bg-white text-gray-900 shadow-xl p-4 w-96 z-10 card left-[-300px]">
               <div className="absolute top-[-16px] left-[204px] w-0 h-0 border-x-transparent border-b-white border-t-transparent border-solid border-8"></div>
-              {microCart?.cart_items?.map((cartItem, index) => {
+              {cart?.cart_items?.map((cartItem, index) => {
                 return (
                   <div
                     key={index}
@@ -88,8 +76,8 @@ const Navbar = () => {
                   </div>
                 );
               })}
-              {microCart?.cart_items?.length == 0 ||
-                (!microCart && (
+              {cart?.cart_items?.length == 0 ||
+                (!cart && (
                   <div className="text-center">Your cart is empty</div>
                 ))}
               <button
