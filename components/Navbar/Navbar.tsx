@@ -124,9 +124,9 @@ const Navbar = () => {
           </div>
         ) : (
           <div
-            className={pathname == "/sign_in" && "underline underline-offset-4"}
+            className={pathname == "/signIn" && "underline underline-offset-4"}
           >
-            <Link href="/sign_in">Sign In</Link>
+            <Link href="/signIn">Sign In</Link>
           </div>
         )}
       </div>
@@ -159,7 +159,7 @@ const Navbar = () => {
 
             {!user && (
               <div className="px-4 py-2 hover:bg-gray-200">
-                <Link href="/sign_in">Sign In</Link>
+                <Link href="/signIn">Sign In</Link>
               </div>
             )}
 
