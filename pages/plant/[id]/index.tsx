@@ -18,7 +18,7 @@ import Link from "next/link";
 
 const Plant = ({ id }) => {
   const [isCareOpen, setIsCareOpen] = useState(false);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(true);
   const { user, cartId } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -161,7 +161,7 @@ const Plant = ({ id }) => {
           </div>
         </div>
       </div>
-      <div className="flex-1 flex flex-col pr-10 card shadow-xl bg-white p-5 md:mr-10 mb-5">
+      <div className="flex-1 flex flex-col pr-10 card shadow-xl bg-white p-5 md:mr-10 mb-5 h-full">
         <div className="flex-col md:flex-row gap-3 md:gap-0 md:justify-between flex">
           <div>
             <div className="font-bold">
@@ -209,9 +209,65 @@ const Plant = ({ id }) => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="flex">
+            <div className="mr-3">
+              <div className="py-2 px-3 bg-[#EEF0F2] rounded-lg h-12 flex items-center">
+                <div className="w-full flex justify-between items-center gap-x-5">
+                  <div className="grow">
+                    <input
+                      className="w-4 p-0 bg-transparent border-0focus:ring-0 "
+                      type="text"
+                      value="1"
+                    />
+                  </div>
+                  <div className="flex justify-end items-center gap-x-1.5">
+                    <button
+                      type="button"
+                      className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      data-hs-input-number-decrement
+                    >
+                      <svg
+                        className="flex-shrink-0 w-3.5 h-3.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      data-hs-input-number-increment
+                    >
+                      <svg
+                        className="flex-shrink-0 w-3.5 h-3.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <button
-              className="btn uppercase"
+              className="btn uppercase btn-action"
               onClick={() =>
                 handleAddToCart({
                   user,
@@ -266,24 +322,25 @@ const Plant = ({ id }) => {
             </button>
             {isDetailsOpen && (
               <div className="p-4 border rounded mt-3">
-                <p>Details information goes here.</p>
+                <p>
+                  {" "}
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Aenean nec velit ac nibh sagittis tincidunt. In rutrum magna
+                  sed luctus rhoncus. Morbi venenatis orci volutpat justo
+                  facilisis molestie. Ut condimentum semper sagittis. Lorem
+                  ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+                  justo eget quam bibendum imperdiet. Nulla turpis ex, faucibus
+                  ut accumsan vitae, mollis a felis. Suspendisse vitae arcu
+                  interdum neque convallis efficitur id non elit. In a ligula
+                  dictum leo tristique dapibus id ut enim. Nunc sed commodo
+                  libero, eget molestie turpis. Nam ornare libero in lobortis
+                  efficitur. Proin id dui volutpat, hendrerit ante in, sagittis
+                  leo. Fusce eu nisl sed augue rutrum euismod ac quis dolor. Nam
+                  quis vestibulum arcu, eget accumsan sem.
+                </p>
               </div>
             )}
           </div>
-        </div>
-        <div className="pt-3">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec
-          velit ac nibh sagittis tincidunt. In rutrum magna sed luctus rhoncus.
-          Morbi venenatis orci volutpat justo facilisis molestie. Ut condimentum
-          semper sagittis. Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit. Integer nec justo eget quam bibendum imperdiet. Nulla turpis ex,
-          faucibus ut accumsan vitae, mollis a felis. Suspendisse vitae arcu
-          interdum neque convallis efficitur id non elit. In a ligula dictum leo
-          tristique dapibus id ut enim. Nunc sed commodo libero, eget molestie
-          turpis. Nam ornare libero in lobortis efficitur. Proin id dui
-          volutpat, hendrerit ante in, sagittis leo. Fusce eu nisl sed augue
-          rutrum euismod ac quis dolor. Nam quis vestibulum arcu, eget accumsan
-          sem.
         </div>
       </div>
     </div>

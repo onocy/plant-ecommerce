@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }) {
     <UserProvider>
       <PlantProvider initialPlants={pageProps.plants}>
         <CartProvider>
-          <div data-theme="cupcake">
+          <div data-theme="lemonade">
             <div className="flex flex-col min-h-screen">
               <div className="flex-grow overflow-auto">
                 {showNavbarAndFooter && <Navbar />}
