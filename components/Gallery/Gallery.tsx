@@ -8,30 +8,65 @@ import { useUser } from "contexts/userContext";
 import { handleAddToCart } from "utils/cart";
 import { useRouter } from "next/router";
 
+const SortOptions = {
+  PRICE_HIGH_TO_LOW: "Price - High to Low",
+  PRICE_LOW_TO_HIGH: "Price - Low to High",
+  NAME: "Name",
+};
+
 const Gallery = () => {
   const { plants } = usePlants();
   const { user, cartId } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  const [sortOption, setSortOption] = useState("");
+
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
+  };
+
+  const sortPlants = (plants: any[], sortOption: string) => {
+    switch (sortOption) {
+      case SortOptions.PRICE_HIGH_TO_LOW:
+        return plants.slice().sort((a, b) => b.price - a.price);
+      case SortOptions.PRICE_LOW_TO_HIGH:
+        return plants.slice().sort((a, b) => a.price - b.price);
+      case SortOptions.NAME:
+        return plants.slice().sort((a, b) => a.name.localeCompare(b.name));
+      default:
+        return plants;
+    }
+  };
+
+  const sortedPlants = sortPlants(plants, sortOption);
+
   return (
     <div className="my-10">
       <div className="text-gray-400 mb-3 tracking-widest text-center text-md">
         Gallery
         <div className="mt-5">
-          <select className="select select-sm select-bordered w-full max-w-xs">
-            <option disabled selected>
+          <select
+            className="select select-sm select-bordered w-full max-w-xs"
+            onChange={handleSortChange}
+            value={sortOption}
+          >
+            <option disabled value="">
               Sort by
             </option>
-            <option>Price - High to Low</option>
-            <option>Price - Low to High</option>
-            <option>Name</option>
+            <option value={SortOptions.PRICE_HIGH_TO_LOW}>
+              {SortOptions.PRICE_HIGH_TO_LOW}
+            </option>
+            <option value={SortOptions.PRICE_LOW_TO_HIGH}>
+              {SortOptions.PRICE_LOW_TO_HIGH}
+            </option>
+            <option value={SortOptions.NAME}>{SortOptions.NAME}</option>
           </select>
         </div>
       </div>
       <div className="flex flex-wrap gap-3 justify-center">
-        {plants?.length > 0 &&
-          plants.map((plant, index) => {
+        {sortedPlants?.length > 0 &&
+          sortedPlants.map((plant, index) => {
             return (
               <div
                 className="card glass p-4 items-center text-center"
