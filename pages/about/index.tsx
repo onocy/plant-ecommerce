@@ -7,9 +7,9 @@ const About = () => {
   return (
     <>
       <div className="px-20">
-        <div className="flex gap-4 mb-8">
-          <Image src="/images/about-2.png" width="400" height="300" alt="" />
-          <Image src="/images/about-1.png" width="800" height="200" alt="" />
+        <div className="flex gap-4 mb-8 justify-center">
+          <Image src="/images/about-2.png" width="300" height="200" alt="" />
+          {/* <Image src="/images/about-1.png" width="800" height="100" alt="" /> */}
         </div>
         <div className="flex mb-3 justify-center">
           <img src="/logo.svg" width="50" height="50" className="pr-3" alt="" />
