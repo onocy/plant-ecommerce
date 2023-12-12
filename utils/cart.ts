@@ -57,17 +57,23 @@ export const addItemToCart = async (
 ) => {
   let trueCartId = cartId;
 
-  // If no cartId is provided, create a new cart for the user
+  // If no cartId is provided, check if one exists for the user, if not, create a new cart for the user
   if (!cartId) {
-    const { data, error } = await supabase
-      .from("cart")
-      .upsert({ user_id: userId })
-      .select();
+    const possibleCartId = await getUserCart(userId);
 
-    if (error) throw error;
+    if (possibleCartId) {
+      trueCartId = possibleCartId.id;
+    } else {
+      const { data, error } = await supabase
+        .from("cart")
+        .upsert({ user_id: userId })
+        .select();
 
-    if (!error) {
-      trueCartId = data[0].id;
+      if (error) throw error;
+
+      if (!error) {
+        trueCartId = data[0].id;
+      }
     }
   }
 
