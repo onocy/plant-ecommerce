@@ -17,7 +17,7 @@ import { useCart } from "contexts/cartContext";
 import Link from "next/link";
 
 const Plant = ({ id }) => {
-  const [isCareOpen, setIsCareOpen] = useState(false);
+  const [isCareOpen, setIsCareOpen] = useState(true);
   const [isDetailsOpen, setIsDetailsOpen] = useState(true);
   const { user, cartId } = useUser();
   const [isLoading, setIsLoading] = useState(false);
@@ -135,10 +135,10 @@ const Plant = ({ id }) => {
               alt={`Plant 1`}
               className="rounded-lg group-hover:blur-sm transition-all duration-250"
             />
-            <div className="pt-8 flex items-center w-80 pb-3">
+            <div className="my-4 flex items-center w-80">
               <div className="flex-grow h-px bg-gray-400"></div>
-              <span className="px-4 text-gray-900 whitespace-nowrap">
-                Related plants
+              <span className="px-4 text-gray-900 whitespace-nowrap uppercase tracking-widest">
+                Related
               </span>
               <div className="flex-grow h-px bg-gray-400"></div>
             </div>
@@ -148,7 +148,7 @@ const Plant = ({ id }) => {
                   href={`/plant/${plant?.related_plant?.id}`}
                   key={plant.id}
                 >
-                  <div className="card glass p-3 text-center w-[8rem]">
+                  <div className="card glass p-3 text-center w-[8rem] bg-white">
                     <Image
                       src={`/images/${plant.related_plant?.main_image}`}
                       width={100}
@@ -156,10 +156,10 @@ const Plant = ({ id }) => {
                       alt={`Plant 1`}
                       className="rounded-lg group-hover:blur-sm transition-all duration-250"
                     />
-                    <div className="pt-3 flex-wrap">
+                    <div className="pt-3 flex-wrap font-semibold">
                       {plant.related_plant?.name}
                     </div>
-                    <div>{plant.related_plant?.price}</div>
+                    <div className="text-sm">${plant.related_plant?.price}</div>
                   </div>
                 </Link>
               ))}
@@ -177,40 +177,9 @@ const Plant = ({ id }) => {
               <div className="badge badge-info p-4 text-lg my-3">
                 Pot Size: {pot_size}
               </div>
-              <div className="text-2xl my-3">${price}</div>
-              <div className="border-solid border-b border-b-gray-400 pt-2"></div>
+              <div className="text-2xl">${price}</div>
               <div className="mt-3 flex-col flex gap-2">
-                <div className="flex gap-3 items-center ">
-                  <GrassIcon className="text-4xl" />
-                  <div className="font-bold">Plant Type:</div>
-                  {category}
-                </div>
-                <div className="flex gap-3 items-center">
-                  <FlareIcon className="text-4xl" />
-                  Required Light:
-                  <div className="">{light_requirement}</div>
-                </div>
-                <div className="flex gap-3 items-center">
-                  <WaterDropIcon className="text-4xl" />
-                  Required Water:
-                  <div className="">{water_requirement}</div>
-                </div>
-                <div className="flex gap-3 items-center">
-                  <ThermostatIcon className="text-4xl" />
-                  Temperature Minimum:
-                  <div className="">{temp_range_min}°F</div>
-                </div>
-                <div className="flex gap-3 items-center">
-                  <ThermostatIcon className="text-4xl" />
-                  Temperature Maximum:
-                  <div className="">{temp_range_max}°F</div>
-                </div>
-                <div className="flex gap-3 items-center">
-                  <ChildFriendlyIcon className="text-4xl" />
-                  Care Level:
-                  <div className="">{care_level}</div>
-                </div>
-                <div className="mt-3">
+                <div className="">
                   {[...Array(rating)].map((_, index) => (
                     <StarIcon key={index} />
                   ))}
@@ -297,7 +266,9 @@ const Plant = ({ id }) => {
           </div>
           <div className="border-solid border-b border-b-gray-400 p-3"></div>
           <div className="mt-3">
-            <div className="mb-4 relative">
+            <div>{details}</div>
+
+            <div className="mb-4 relative mt-3">
               <button
                 onClick={() => setIsCareOpen(!isCareOpen)}
                 className="pt-2 flex items-center"
@@ -311,7 +282,31 @@ const Plant = ({ id }) => {
               </button>
               {isCareOpen && (
                 <div className="p-4 border rounded mt-3">
-                  <p>Care information goes here.</p>
+                  <div className="flex gap-3 items-center">
+                    <FlareIcon className="text-4xl" />
+                    Required Light:
+                    <div className="">{light_requirement}</div>
+                  </div>
+                  <div className="flex gap-3 items-center">
+                    <WaterDropIcon className="text-4xl" />
+                    Required Water:
+                    <div className="">{water_requirement}</div>
+                  </div>
+                  <div className="flex gap-3 items-center">
+                    <ThermostatIcon className="text-4xl" />
+                    Temperature Minimum:
+                    <div className="">{temp_range_min}°F</div>
+                  </div>
+                  <div className="flex gap-3 items-center">
+                    <ThermostatIcon className="text-4xl" />
+                    Temperature Maximum:
+                    <div className="">{temp_range_max}°F</div>
+                  </div>
+                  <div className="flex gap-3 items-center">
+                    <ChildFriendlyIcon className="text-4xl" />
+                    Care Level:
+                    <div className="">{care_level}</div>
+                  </div>
                 </div>
               )}
             </div>
@@ -330,7 +325,11 @@ const Plant = ({ id }) => {
               </button>
               {isDetailsOpen && (
                 <div className="p-4 border rounded mt-3">
-                  <p>{details}</p>
+                  <div className="flex gap-3 items-center ">
+                    <GrassIcon className="text-4xl" />
+                    <div className="font-bold">Plant Type:</div>
+                    {category}
+                  </div>
                 </div>
               )}
             </div>
