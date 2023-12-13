@@ -371,11 +371,26 @@ const Plant = ({ id }) => {
           </div>
         </div>
       </div>
+      <div className="border border-b-gray-400 my-8 mx-9"></div>
       <div className="flex items-center justify-center flex-col">
-        <div className="text-center mt-10 card bg-white glass w-full md:mx-10 mx-0 p-5">
-          <div className="text-xl font-bold uppercase tracking-widest">
-            Reviews
+        <div className="mt-10 card bg-white glass w-[53rem] p-5">
+          <div className="text-xl font-bold uppercase tracking-widest text-center">
+            Reviews (#)
           </div>
+          {[...Array(5)].map((_, index) => (
+            <div className="first:pt-0 pt-3" key={index}>
+              <div>
+                {[...Array(4)].map((_, index) => (
+                  <StarIcon key={index} />
+                ))}
+              </div>
+              <div>Reviewer name</div>
+              <div>Review Title</div>
+              <div>Review description</div>
+              <div>Date</div>
+              <div>Was this review helpful?</div>
+            </div>
+          ))}
         </div>
         <div className="flex w-full md:w-[55rem] justify-center self-center mx-0 md:mx-20 gap-4 my-4 text-center">
           <div className="p-4 card bg-white shadow-xl ml-3 ">
