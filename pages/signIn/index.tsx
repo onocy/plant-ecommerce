@@ -3,7 +3,6 @@ import { useState } from "react";
 import { supabase } from "utils/supabase";
 import { useRouter } from "next/router";
 import { useUser } from "contexts/userContext";
-import Button from "@mui/material/Button";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -65,23 +64,26 @@ const SignIn = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="rounded-md p-2 border border-gray-400 mt-3"
+          className="rounded-md p-2 border border-gray-400 mt-3 input input-bordered"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="rounded-md p-2 border border-gray-400"
+          className="rounded-md p-2 border border-gray-400 input input-bordered"
         />
-        <Button variant="outlined" color="primary" type="submit">
+        <button
+          className="btn btn-error uppercase tracking-wider text-md"
+          type="submit"
+        >
           Sign In
-        </Button>
+        </button>
         <div className="mt-3">
           No account?
-          <Button variant="text" color="primary" type="submit" className="ml-3">
+          <button className="btn btn-link mx-0 tracking-wider" type="submit">
             Sign up
-          </Button>
+          </button>
         </div>
       </form>
     </div>
