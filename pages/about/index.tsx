@@ -24,11 +24,11 @@ const About = () => {
             homes and workplaces, yet the hustle of city life often made it
             difficult to access. She envisioned a platform that would bridge
             this gap, bringing lush foliage from the rich Polish countryside to
-            the urban jungle. Emilia's passion for plants was more than just a
-            hobby; it was a legacy handed down through generations, nurtured by
-            the stories of her grandfather who tended to vast gardens during the
-            austere post-war era, finding solace and freedom in the growth and
-            bloom of each plant.
+            the urban jungle. Emilia&apos;s passion for plants was more than
+            just a hobby; it was a legacy handed down through generations,
+            nurtured by the stories of her grandfather who tended to vast
+            gardens during the austere post-war era, finding solace and freedom
+            in the growth and bloom of each plant.
           </div>
 
           <div>
@@ -36,26 +36,26 @@ const About = () => {
             with her keen understanding of the digital landscape, combined her
             heritage with an innovative approach to create an online haven for
             plant lovers. She began by curating a collection from local growers,
-            emphasizing the unique flora that thrived in Poland's varied
+            emphasizing the unique flora that thrived in Poland&apos;s varied
             climates—from the misty highlands to the verdant plains. The
             platform was not just a store but a community hub where novices and
-            aficionados alike could share their love for botany. Emilia's vision
-            was clear: to foster a digital ecosystem where every plant had a
-            story, every purchase a personal connection to the earth, and every
-            customer a chance to cultivate their own green oasis.
+            aficionados alike could share their love for botany. Emilia&apos;s
+            vision was clear: to foster a digital ecosystem where every plant
+            had a story, every purchase a personal connection to the earth, and
+            every customer a chance to cultivate their own green oasis.
           </div>
           <div>
             As Rośliny grew, so did its reputation, blossoming into a beacon for
-            green living and a symbol of sustainability. It wasn't just about
-            selling plants; it was about instilling a greener consciousness in
-            the heart of urban centers. Emilia's initiative quickly spread
-            beyond Kraków, rooting itself deeply in the ethos of cities across
-            Europe. With each delivery, a piece of the pastoral Polish landscape
-            found its way into homes, offices, and lives, bringing with it a
-            breath of fresh air and a sense of peace. Rośliny became synonymous
-            with a movement towards a more harmonious coexistence with nature, a
-            testament to Emilia's dream of reconnecting people with the natural
-            world in the digital age.
+            green living and a symbol of sustainability. It wasn&apos;t just
+            about selling plants; it was about instilling a greener
+            consciousness in the heart of urban centers. Emilia&apos;s
+            initiative quickly spread beyond Kraków, rooting itself deeply in
+            the ethos of cities across Europe. With each delivery, a piece of
+            the pastoral Polish landscape found its way into homes, offices, and
+            lives, bringing with it a breath of fresh air and a sense of peace.
+            Rośliny became synonymous with a movement towards a more harmonious
+            coexistence with nature, a testament to Emilia&apos;s dream of
+            reconnecting people with the natural world in the digital age.
           </div>
         </div>
       </div>
