@@ -8,6 +8,7 @@ import { useUser } from "contexts/userContext";
 import { handleAddToCart } from "utils/cart";
 import { useRouter } from "next/router";
 import { useCart } from "contexts/cartContext";
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 
 const SortOptions = {
   PRICE_HIGH_TO_LOW: "Price - High to Low",
@@ -82,6 +83,13 @@ const Gallery = () => {
                   {plant?.is_new_item && (
                     <div className="ribbon">
                       <span>New</span>
+                    </div>
+                  )}
+                  {true && (
+                    <div className="absolute right-5 top-3 flex gap-2">
+                      <div className="bg-info rounded-full p-2 align-center justify-center">
+                        <StarOutlinedIcon className="text-white" />
+                      </div>
                     </div>
                   )}
                   <Image
