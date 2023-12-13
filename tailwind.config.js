@@ -11,7 +11,11 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/typography"), require("daisyui")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("daisyui"),
+    "prettier-plugin-tailwindcss",
+  ],
   daisyui: {
     themes: ["light", "dark", "cupcake", "lemonade", "nord"],
   },

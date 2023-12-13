@@ -22,6 +22,8 @@
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",
     "postcss": "^8.4.24",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.9",
     "ra-data-json-server": "^4.12.2",
     "react": "18.2.0",
     "react-admin": "^4.12.2",

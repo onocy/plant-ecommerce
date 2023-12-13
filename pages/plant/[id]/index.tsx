@@ -278,34 +278,64 @@ const Plant = ({ id }) => {
                     isCareOpen ? "rotate-90" : ""
                   }`}
                 />
-                Care
+                <div className="text-lg font-bold ">Care</div>
               </button>
               {isCareOpen && (
-                <div className="p-4 border rounded mt-3">
-                  <div className="flex gap-3 items-center">
-                    <FlareIcon className="text-4xl" />
-                    Required Light:
-                    <div className="">{light_requirement}</div>
+                <div className="p-4 border rounded mt-3 flex flex-col gap-2">
+                  <div className="flex gap-4 items-center justify-between">
+                    <div className="flex gap-3 items-center">
+                      <ThermostatIcon className="text-3xl" />
+                      <div className="">Temperature Minimum:</div>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                      {temp_range_min}°F
+                      <progress
+                        className="progress progress-info w-56"
+                        value={60}
+                        max="100"
+                      ></progress>
+                    </div>
                   </div>
-                  <div className="flex gap-3 items-center">
-                    <WaterDropIcon className="text-4xl" />
-                    Required Water:
-                    <div className="">{water_requirement}</div>
+                  <div className="flex gap-3 items-center justify-between">
+                    <div className="flex gap-3 items-center">
+                      <ThermostatIcon className="text-3xl" />
+                      <div className="">Temperature Maximum:</div>
+                    </div>
+                    <div className="flex gap-3 items-center">
+                      {temp_range_max}°F
+                      <progress
+                        className="progress progress-error w-56"
+                        value={80}
+                        max="100"
+                      ></progress>
+                    </div>
                   </div>
-                  <div className="flex gap-3 items-center">
-                    <ThermostatIcon className="text-4xl" />
-                    Temperature Minimum:
-                    <div className="">{temp_range_min}°F</div>
+                  <div className="flex gap-3 justify-between items-center">
+                    <div className="flex gap-3 items-center">
+                      <FlareIcon className="text-3xl" />
+                      <div className="">Required Light:</div>
+                    </div>
+                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase ">
+                      {light_requirement}
+                    </div>
                   </div>
-                  <div className="flex gap-3 items-center">
-                    <ThermostatIcon className="text-4xl" />
-                    Temperature Maximum:
-                    <div className="">{temp_range_max}°F</div>
+                  <div className="flex gap-3 items-center justify-between">
+                    <div className="flex gap-3 items-center">
+                      <WaterDropIcon className="text-3xl" />
+                      <div className="">Required Water:</div>
+                    </div>
+                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase ">
+                      {water_requirement}
+                    </div>
                   </div>
-                  <div className="flex gap-3 items-center">
-                    <ChildFriendlyIcon className="text-4xl" />
-                    Care Level:
-                    <div className="">{care_level}</div>
+                  <div className="flex gap-3 items-center justify-between">
+                    <div className="flex gap-3 items-center">
+                      <ChildFriendlyIcon className="text-3xl" />{" "}
+                      <div className=""> Care Level:</div>
+                    </div>
+                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase ">
+                      {care_level}
+                    </div>
                   </div>
                 </div>
               )}
@@ -321,14 +351,18 @@ const Plant = ({ id }) => {
                     isDetailsOpen ? "rotate-90" : ""
                   }`}
                 />
-                Details
+                <div className="text-lg font-bold">Details</div>
               </button>
               {isDetailsOpen && (
                 <div className="p-4 border rounded mt-3">
-                  <div className="flex gap-3 items-center ">
-                    <GrassIcon className="text-4xl" />
-                    <div className="font-bold">Plant Type:</div>
-                    {category}
+                  <div className="flex gap-3 items-center justify-between">
+                    <div className="flex gap-3 items-center">
+                      <GrassIcon className="text-3xl" />
+                      <div className="">Plant Type:</div>
+                    </div>
+                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase ">
+                      {category}
+                    </div>
                   </div>
                 </div>
               )}
