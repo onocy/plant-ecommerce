@@ -15,6 +15,7 @@ const SortOptions = {
   PRICE_LOW_TO_HIGH: "Price - Low to High",
   NAME: "Name",
   NEW: "New",
+  POPULAR: "Popular",
 };
 
 const Gallery = () => {
@@ -38,6 +39,8 @@ const Gallery = () => {
         return plants.slice().sort((a, b) => a.price - b.price);
       case SortOptions.NEW:
         return plants.slice().sort((a, b) => b.is_new_item - a.is_new_item);
+      case SortOptions.POPULAR:
+        return plants.slice().sort((a, b) => b.is_popular - a.is_popular);
       case SortOptions.NAME:
         return plants.slice().sort((a, b) => a.name.localeCompare(b.name));
       default:
@@ -68,6 +71,7 @@ const Gallery = () => {
             </option>
             <option value={SortOptions.NAME}>{SortOptions.NAME}</option>
             <option value={SortOptions.NEW}>{SortOptions.NEW}</option>
+            <option value={SortOptions.POPULAR}>{SortOptions.POPULAR}</option>
           </select>
         </div>
       </div>
