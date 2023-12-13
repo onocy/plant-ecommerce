@@ -13,6 +13,7 @@ const SortOptions = {
   PRICE_HIGH_TO_LOW: "Price - High to Low",
   PRICE_LOW_TO_HIGH: "Price - Low to High",
   NAME: "Name",
+  NEW: "New",
 };
 
 const Gallery = () => {
@@ -34,6 +35,8 @@ const Gallery = () => {
         return plants.slice().sort((a, b) => b.price - a.price);
       case SortOptions.PRICE_LOW_TO_HIGH:
         return plants.slice().sort((a, b) => a.price - b.price);
+      case SortOptions.NEW:
+        return plants.slice().sort((a, b) => b.is_new_item - a.is_new_item);
       case SortOptions.NAME:
         return plants.slice().sort((a, b) => a.name.localeCompare(b.name));
       default:
@@ -63,6 +66,7 @@ const Gallery = () => {
               {SortOptions.PRICE_LOW_TO_HIGH}
             </option>
             <option value={SortOptions.NAME}>{SortOptions.NAME}</option>
+            <option value={SortOptions.NEW}>{SortOptions.NEW}</option>
           </select>
         </div>
       </div>
@@ -75,6 +79,11 @@ const Gallery = () => {
                 key={index}
               >
                 <div className="relative group" key={plant.id}>
+                  {plant?.is_new_item && (
+                    <div className="ribbon">
+                      <span>New</span>
+                    </div>
+                  )}
                   <Image
                     src={`/images/${plant.main_image}`}
                     width={300}
