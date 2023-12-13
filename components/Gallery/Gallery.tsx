@@ -85,7 +85,7 @@ const Gallery = () => {
                       <span>New</span>
                     </div>
                   )}
-                  {true && (
+                  {plant?.is_popular && (
                     <div className="absolute right-5 top-3 flex gap-2">
                       <div className="bg-info rounded-full p-2 align-center justify-center">
                         <StarOutlinedIcon className="text-white" />
