@@ -71,7 +71,7 @@ const Gallery = () => {
           sortedPlants.map((plant, index) => {
             return (
               <div
-                className="card glass p-4 items-center text-center"
+                className="card glass p-4 items-center text-center flex flex-col justify-around"
                 key={index}
               >
                 <div className="relative group" key={plant.id}>
@@ -109,10 +109,14 @@ const Gallery = () => {
                     </button>
                   </div>
                 </div>
-                <div className="mt-3">
-                  <div className="font-bold">{plant.name}</div>
-                  <div className="text-sm">{plant.description}</div>
-                  <div>${plant.price}</div>
+                <div className="mt-3 flex flex-col justify-between gap-3">
+                  <div className="">
+                    <div className="font-bold text-lg">{plant.name}</div>
+                    <div className="text-sm italic tracking-wider">
+                      {plant.description}
+                    </div>
+                  </div>
+                  <div className="text-md font-semibold">${plant.price}</div>
                 </div>
               </div>
             );
