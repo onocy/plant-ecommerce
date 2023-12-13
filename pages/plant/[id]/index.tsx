@@ -26,29 +26,7 @@ const Plant = ({ id }) => {
   const { updateCart } = useCart();
 
   const [relatedPlants, setRelatedPlants] = useState([]);
-
-  // async function listImages() {
-  //   const { data, error } = await supabase.storage
-  //     .from("plant-images")
-  //     .list("folder", {
-  //       limit: 100,
-  //       offset: 0,
-  //       sortBy: { column: "name", order: "asc" },
-  //     });
-
-  //   const { data, error } = await supabase.storage.getBucket("test");
-
-  //   const { data: data2, error: error2 } = await supabase.storage.getBucket(
-  //     "plant-images"
-  //   );
-
-  //   console.log(data, "bucket data");
-  //   console.log(data2, "bucket data 2");
-  // }
-
-  // useEffect(() => {
-  //   listImages();
-  // }, []);
+  const [currentItemQuantity, setCurrentItemQuantity] = useState(1);
 
   const getRelatedPlants = async (plantId) => {
     console.log(plantId, "plantId");
@@ -123,6 +101,11 @@ const Plant = ({ id }) => {
     details,
   } = currentPlant;
 
+  const reduceQuantity = () => {
+    if (currentItemQuantity === 1) return;
+    setCurrentItemQuantity(currentItemQuantity - 1);
+  };
+
   const rating = 4;
   return (
     <>
@@ -195,14 +178,15 @@ const Plant = ({ id }) => {
                       <input
                         className="w-4 p-0 bg-transparent border-0focus:ring-0 "
                         type="text"
-                        value="1"
+                        min={0}
+                        value={currentItemQuantity}
                       />
                     </div>
                     <div className="flex justify-end items-center gap-x-1.5">
                       <button
                         type="button"
                         className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                        data-hs-input-number-decrement
+                        onClick={reduceQuantity}
                       >
                         <svg
                           className="flex-shrink-0 w-3.5 h-3.5"
@@ -222,7 +206,9 @@ const Plant = ({ id }) => {
                       <button
                         type="button"
                         className="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                        data-hs-input-number-increment
+                        onClick={() =>
+                          setCurrentItemQuantity(currentItemQuantity + 1)
+                        }
                       >
                         <svg
                           className="flex-shrink-0 w-3.5 h-3.5"
@@ -254,6 +240,7 @@ const Plant = ({ id }) => {
                     setIsLoading,
                     router,
                     updateCart,
+                    quantity: currentItemQuantity,
                   })
                 }
               >
