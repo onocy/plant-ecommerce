@@ -303,7 +303,7 @@ const Plant = ({ id }) => {
                       <FlareIcon className="text-3xl" />
                       <div className="">Required Light:</div>
                     </div>
-                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase ">
+                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase pt-5">
                       {light_requirement}
                     </div>
                   </div>
@@ -312,7 +312,7 @@ const Plant = ({ id }) => {
                       <WaterDropIcon className="text-3xl" />
                       <div className="">Required Water:</div>
                     </div>
-                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase ">
+                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase pt-5">
                       {water_requirement}
                     </div>
                   </div>
@@ -321,7 +321,7 @@ const Plant = ({ id }) => {
                       <ChildFriendlyIcon className="text-3xl" />{" "}
                       <div className=""> Care Level:</div>
                     </div>
-                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase ">
+                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase pt-5">
                       {care_level}
                     </div>
                   </div>
@@ -348,7 +348,7 @@ const Plant = ({ id }) => {
                       <GrassIcon className="text-3xl" />
                       <div className="">Plant Type:</div>
                     </div>
-                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase ">
+                    <div className="badge badge-neutral badge-outline p-4 tracking-wider uppercase pt-5">
                       {category}
                     </div>
                   </div>
@@ -364,20 +364,34 @@ const Plant = ({ id }) => {
           <div className="text-xl font-bold uppercase tracking-widest text-center">
             Reviews (#)
           </div>
-          {[...Array(5)].map((_, index) => (
-            <div className="first:pt-0 pt-3" key={index}>
-              <div>
-                {[...Array(4)].map((_, index) => (
-                  <StarIcon key={index} />
-                ))}
+          <div className="flex flex-col gap-4">
+            {[...Array(5)].map((_, index) => (
+              <div
+                className="last:border-none border-b-[1px] border-gray-300 pb-4 last:pb-0 first:pt-4"
+                key={index}
+              >
+                <div>
+                  {[...Array(4)].map((_, index) => (
+                    <StarIcon key={index} />
+                  ))}
+                </div>
+                <div className="flex justify-between mb-3">
+                  <div>
+                    <div className="font-bold">Review Title</div>
+                    <div className="text-sm">Reviewer name</div>
+                  </div>
+                  <div>Date</div>
+                </div>
+                <div>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Soluta fugiat ea reiciendis eaque officia, ex neque iusto ipsa
+                  quae deserunt aperiam aliquam, at quos possimus, quam laborum
+                  nam. Iusto, consequatur!
+                </div>
+                {/* <div className="text-sm">Was this review helpful?</div> */}
               </div>
-              <div>Reviewer name</div>
-              <div>Review Title</div>
-              <div>Review description</div>
-              <div>Date</div>
-              <div>Was this review helpful?</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
         <div className="flex w-full md:w-[55rem] justify-center self-center mx-0 md:mx-20 gap-4 my-4 text-center">
           <div className="p-4 card bg-white shadow-xl ml-3 ">
