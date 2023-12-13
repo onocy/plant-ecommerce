@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import Button from "@mui/material/Button";
 import StarIcon from "@mui/icons-material/Star";
 import Image from "next/image";
 import { usePlants } from "contexts/plantContext";
@@ -11,6 +10,8 @@ import GrassIcon from "@mui/icons-material/Grass";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import ChildFriendlyIcon from "@mui/icons-material/ChildFriendly";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import DoneOutlineOutlinedIcon from "@mui/icons-material/DoneOutlineOutlined";
 import { supabase } from "utils/supabase";
 import { useRouter } from "next/router";
 import { useCart } from "contexts/cartContext";
@@ -370,10 +371,28 @@ const Plant = ({ id }) => {
           </div>
         </div>
       </div>
-      <div>
-        <div className="text-center mt-10 card bg-white glass mx-0 md:mx-20 p-5">
+      <div className="flex items-center justify-center flex-col">
+        <div className="text-center mt-10 card bg-white glass w-full md:mx-10 mx-0 p-5">
           <div className="text-xl font-bold uppercase tracking-widest">
             Reviews
+          </div>
+        </div>
+        <div className="flex w-full md:w-[55rem] justify-center self-center mx-0 md:mx-20 gap-4 my-4 text-center">
+          <div className="p-4 card bg-white shadow-xl ml-3 ">
+            <div className="flex justify-center mb-1">
+              <LocalShippingOutlinedIcon className="text-4xl" />
+            </div>
+            <div className="font-bold mb-3">Free Shipping</div>
+            <div>Get free standard shipping when you spend $150 or more</div>
+          </div>
+          <div className="p-4 card bg-white shadow-xl mr-3">
+            <div className="flex justify-center mb-1">
+              <DoneOutlineOutlinedIcon />
+            </div>
+            <div className="font-bold mb-3">Guarantee</div>
+            <div>
+              If your plant dies within 30 days, we will replace it for free
+            </div>
           </div>
         </div>
       </div>
