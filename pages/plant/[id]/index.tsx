@@ -10,12 +10,12 @@ import GrassIcon from "@mui/icons-material/Grass";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import ThermostatIcon from "@mui/icons-material/Thermostat";
 import ChildFriendlyIcon from "@mui/icons-material/ChildFriendly";
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
-import DoneOutlineOutlinedIcon from "@mui/icons-material/DoneOutlineOutlined";
 import { supabase } from "utils/supabase";
 import { useRouter } from "next/router";
 import { useCart } from "contexts/cartContext";
 import Link from "next/link";
+import { Guarantee } from "@/components/Plant/Guarantee";
+import { Reviews } from "@/components/Plant/Reviews";
 
 const Plant = ({ id }) => {
   const [isCareOpen, setIsCareOpen] = useState(true);
@@ -150,7 +150,7 @@ const Plant = ({ id }) => {
             </div>
           </div>
         </div>
-        <div className="flex-1 flex flex-col pr-10 card shadow-xl bg-white p-5 md:mr-10 mb-5 h-full">
+        <div className="flex-1 flex flex-col pr-10 card shadow-xl bg-white p-5 md:mr-10 mb-5 h-full flex-wrap">
           <div className="flex-col md:flex-row gap-3 md:gap-0 md:justify-between flex">
             <div>
               <div className="font-bold text-2xl">{name}</div>
@@ -269,7 +269,7 @@ const Plant = ({ id }) => {
                 <div className="text-lg font-bold ">Care</div>
               </button>
               {isCareOpen && (
-                <div className="p-4 border rounded mt-3 flex flex-col gap-2">
+                <div className="p-4 border rounded mt-3 flex flex-col gap-2 flex-wrap">
                   <div className="flex gap-4 items-center justify-between">
                     <div className="flex gap-3 items-center">
                       <ThermostatIcon className="text-3xl" />
@@ -360,57 +360,8 @@ const Plant = ({ id }) => {
       </div>
       <div className="border border-b-gray-400 my-8 mx-9"></div>
       <div className="flex items-center justify-center flex-col">
-        <div className="mt-10 card bg-white glass w-[53rem] p-5">
-          <div className="text-xl font-bold uppercase tracking-widest text-center">
-            Reviews (#)
-          </div>
-          <div className="flex flex-col gap-4">
-            {[...Array(5)].map((_, index) => (
-              <div
-                className="last:border-none border-b-[1px] border-gray-300 pb-4 last:pb-0 first:pt-4"
-                key={index}
-              >
-                <div>
-                  {[...Array(4)].map((_, index) => (
-                    <StarIcon key={index} />
-                  ))}
-                </div>
-                <div className="flex justify-between mb-3">
-                  <div>
-                    <div className="font-bold">Review Title</div>
-                    <div className="text-sm">Reviewer name</div>
-                  </div>
-                  <div>Date</div>
-                </div>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Soluta fugiat ea reiciendis eaque officia, ex neque iusto ipsa
-                  quae deserunt aperiam aliquam, at quos possimus, quam laborum
-                  nam. Iusto, consequatur!
-                </div>
-                {/* <div className="text-sm">Was this review helpful?</div> */}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="flex w-full md:w-[55rem] justify-center self-center mx-0 md:mx-20 gap-4 my-4 text-center">
-          <div className="p-4 card bg-white shadow-xl ml-3 ">
-            <div className="flex justify-center mb-1">
-              <LocalShippingOutlinedIcon className="text-4xl" />
-            </div>
-            <div className="font-bold mb-3">Free Shipping</div>
-            <div>Get free standard shipping when you spend $150 or more</div>
-          </div>
-          <div className="p-4 card bg-white shadow-xl mr-3">
-            <div className="flex justify-center mb-1">
-              <DoneOutlineOutlinedIcon />
-            </div>
-            <div className="font-bold mb-3">Guarantee</div>
-            <div>
-              If your plant dies within 30 days, we will replace it for free
-            </div>
-          </div>
-        </div>
+        <Reviews />
+        <Guarantee />
       </div>
     </>
   );
