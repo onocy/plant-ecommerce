@@ -42,8 +42,13 @@ const Navbar = () => {
 
         {!cartPath && (
           <div className="relative group">
-            <Link href="/cart">
+            <Link href="/cart" className="relative">
               <ShoppingCartIcon />
+              <div className="absolute top-[-10px] left-[10px]">
+                <div className="bg-red-600 text-white rounded-3xl px-1 text-xs">
+                  {cart?.cart_items.length}
+                </div>
+              </div>
             </Link>
 
             {/* Microcart */}
