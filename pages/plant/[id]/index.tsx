@@ -17,7 +17,7 @@ import Link from "next/link";
 import { Guarantee } from "@/components/Plant/Guarantee";
 import { Reviews } from "@/components/Plant/Reviews";
 
-const Plant = ({ id }) => {
+const Plant = ({ id, reviews }) => {
   const [isCareOpen, setIsCareOpen] = useState(true);
   const [isDetailsOpen, setIsDetailsOpen] = useState(true);
   const { user, cartId } = useUser();
@@ -29,7 +29,6 @@ const Plant = ({ id }) => {
   const [currentItemQuantity, setCurrentItemQuantity] = useState(1);
 
   const getRelatedPlants = async (plantId) => {
-    console.log(plantId, "plantId");
     try {
       const { data, error } = await supabase
         .from("related_plants")
@@ -360,7 +359,7 @@ const Plant = ({ id }) => {
       </div>
       <div className="border border-b-gray-400 my-8 mx-9"></div>
       <div className="flex items-center justify-center flex-col">
-        <Reviews />
+        <Reviews reviews={reviews}/>
         <Guarantee />
       </div>
     </>
@@ -370,9 +369,17 @@ const Plant = ({ id }) => {
 export async function getServerSideProps(context) {
   const { id } = context.params;
 
+  const { data: reviews } = await supabase
+    .from("reviews")
+    .select("*")
+    .eq("plant_id", id);
+
+  console.log(reviews);
+
   return {
     props: {
       id,
+      reviews,
     },
   };
 }
