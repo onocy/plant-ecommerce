@@ -42,7 +42,7 @@ const SignUp = () => {
           fill
           style={{ objectFit: "cover", objectPosition: "center" }}
           priority={true}
-          quality={100}
+          quality={80}
           alt=""
         />
       </div>

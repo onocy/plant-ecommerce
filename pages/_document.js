@@ -10,6 +10,11 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/sign_in_background.png"
+        ></link>
       </Head>
       <body>
         <Main />
