@@ -1,10 +1,13 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "../utils/supabase";
 import { getUserCart } from "utils/cart";
+import { useRouter } from "next/router";
 
 const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
+  const router = useRouter();
+
   const [user, setUser] = useState(null);
   const [cartId, setCartId] = useState(null);
 
@@ -44,6 +47,8 @@ export function UserProvider({ children }) {
     setCartId(null); // Clear the cartId on sign out
     const { error } = await supabase.auth.signOut();
     console.log(error, "error with signout");
+
+    router.push("/signIn");
   }
 
   return (
