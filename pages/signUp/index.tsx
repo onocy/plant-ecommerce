@@ -6,30 +6,32 @@ import { useUser } from "contexts/userContext";
 import Link from "next/link";
 import Image from "next/image";
 
-const SignIn = () => {
+const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorText, setErrorText] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const { setUser } = useUser();
 
   const router = useRouter();
 
-  const handleSignIn = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    // const { data, error } = await supabase.auth.signInWithPassword({
+    //   email,
+    //   password,
+    // });
 
-    if (error) {
-      setErrorText(error.message);
-    } else if (data) {
-      setUser(data.user);
-      router.push("/"); // Redirect to home page
-    } else {
-      console.error("Sign-in error: An unexpected error occurred");
-    }
+    // if (error) {
+    //   setErrorText(error.message);
+    // } else if (data) {
+    //   setUser(data.user);
+    //   router.push("/"); // Redirect to home page
+    // } else {
+    //   console.error("Sign-in error: An unexpected error occurred");
+    // }
   };
 
   return (
@@ -45,7 +47,7 @@ const SignIn = () => {
         />
       </div>
       <form
-        onSubmit={handleSignIn}
+        onSubmit={handleSignUp}
         className="flex flex-col w-96 min-w-fit rounded-xl bg-white p-10 gap-3 items-center z-10"
       >
         <Link href="/" className="flex items-center">
@@ -59,12 +61,36 @@ const SignIn = () => {
           <span className="ml-2 mt-3 text-4xl uppercase pr-3">Rośliny</span>
         </Link>
         <div>{errorText}</div>
+        <div className="text-lg">Create Your Account</div>
+        <div className="text-sm">
+          <div>Creating an account makes it easy to manage orders</div>
+          <div>
+            By creating an account, you agree to our{" "}
+            <Link className="mx-0 text-blue-400" href="/signUp">
+              Terms of Service
+            </Link>
+          </div>
+        </div>
+        <input
+          type="name"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          className="rounded-md p-2 border border-gray-400 mt-3 input input-bordered"
+        />
+        <input
+          type="name"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          className="rounded-md p-2 border border-gray-400 input input-bordered"
+        />
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="rounded-md p-2 border border-gray-400 mt-3 input input-bordered"
+          className="rounded-md p-2 border border-gray-400 input input-bordered"
         />
         <input
           type="password"
@@ -77,13 +103,13 @@ const SignIn = () => {
           className="btn btn-error uppercase tracking-wider text-md"
           type="submit"
         >
-          Sign In
+          Sign Up
         </button>
         <div className="mt-3">
-          No account?
+          Have an account already?
           <div className="text-center">
-            <Link className="mx-0 tracking-wider text-primary" href="/signUp">
-              Sign Up
+            <Link className="mx-0 tracking-wider text-primary" href="/signIn">
+              Sign In
             </Link>
           </div>
         </div>
@@ -92,4 +118,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
