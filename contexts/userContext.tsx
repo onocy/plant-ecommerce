@@ -11,31 +11,29 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [cartId, setCartId] = useState(null);
 
-  useEffect(() => {
-    async function fetchUser() {
-      const { data: userData, error } = await supabase.auth.getUser();
+  async function fetchUser() {
+    const { data: userData, error } = await supabase.auth.getUser();
 
-      if (error) {
-        console.error(error);
-        return;
-      }
-      setUser(userData?.user ?? null);
-
-      // If the user is found, fetch the associated cartId
-      if (userData?.user) {
-        const cartData = await getUserCart(userData.user.id);
-
-        // if (cartError) {
-        //   console.error(cartError);
-        //   return;
-        // }
-
-        console.log(cartData, "cartData");
-
-        setCartId(cartData?.id ?? null);
-      }
+    if (error) {
+      console.error(error);
+      return;
     }
+    setUser(userData?.user ?? null);
 
+    // If the user is found, fetch the associated cartId
+    if (userData?.user) {
+      const cartData = await getUserCart(userData.user.id);
+
+      // if (cartError) {
+      //   console.error(cartError);
+      //   return;
+      // }
+
+      setCartId(cartData?.id ?? null);
+    }
+  }
+
+  useEffect(() => {
     if (!user) {
       console.log("getting user");
       fetchUser();
