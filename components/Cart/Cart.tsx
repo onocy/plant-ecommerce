@@ -7,15 +7,40 @@ import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import { useCart } from "contexts/cartContext";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const Cart = () => {
   const [loading, setLoading] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteItemId, setDeleteItemId] = useState(null);
+
   const { cartId } = useUser();
   const { cart, updateCart } = useCart();
 
   const deleteItem = async (id) => {
     await deleteFromCart(id, cartId, updateCart);
     updateCart({ cartId });
+  };
+
+  const deleteItemHandler = (id) => {
+    setDeleteItemId(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmCloseModal = async () => {
+    if (deleteItemId !== null) {
+      await deleteItem(deleteItemId);
+      handleCloseModal();
+    }
+  };
+
+  const handleCloseModal = () => {
+    setDeleteItemId(null);
+    setIsDeleteModalOpen(false);
   };
 
   const calculateSubtotal = () => {
@@ -102,7 +127,7 @@ const Cart = () => {
                 <div className="self-center ml-auto">
                   <CloseIcon
                     className="cursor-pointer"
-                    onClick={() => deleteItem(cartItem.id)}
+                    onClick={() => deleteItemHandler(cartItem.id)}
                   />
                 </div>
               </div>
@@ -139,6 +164,26 @@ const Cart = () => {
           </Button>
         </div>
       </div>
+      <Dialog open={isDeleteModalOpen} onClose={handleCloseModal}>
+        <DialogTitle>{"Confirm Deletion"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this item from your cart?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button className="btn btn-primary" onClick={handleCloseModal}>
+            Cancel
+          </Button>
+          <Button
+            className="btn btn-secondary"
+            onClick={handleConfirmCloseModal}
+            autoFocus
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
