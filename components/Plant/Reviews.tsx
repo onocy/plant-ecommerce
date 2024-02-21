@@ -1,7 +1,6 @@
 import StarIcon from "@mui/icons-material/Star";
 
 export const Reviews = ({ reviews }) => {
-  console.log(reviews);
   return (
     <div className="mt-10 card bg-white glass max-w-[53rem] p-5">
       <div className="text-xl font-bold uppercase tracking-widest text-center">

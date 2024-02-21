@@ -359,7 +359,7 @@ const Plant = ({ id, reviews }) => {
       </div>
       <div className="border border-b-gray-400 my-8 mx-9"></div>
       <div className="flex items-center justify-center flex-col">
-        <Reviews reviews={reviews}/>
+        <Reviews reviews={reviews} />
         <Guarantee />
       </div>
     </>
@@ -373,8 +373,6 @@ export async function getServerSideProps(context) {
     .from("reviews")
     .select("*")
     .eq("plant_id", id);
-
-  console.log(reviews);
 
   return {
     props: {
