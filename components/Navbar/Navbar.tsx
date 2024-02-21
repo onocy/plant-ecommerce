@@ -60,7 +60,7 @@ const Navbar = () => {
             </Link>
 
             {/* Microcart */}
-            <div className="absolute hidden group-hover:block bg-white text-gray-900 shadow-xl p-4 w-96 z-10 card left-[-300px]">
+            <div className="absolute hidden group-hover:block bg-white text-gray-900 shadow-xl p-4 w-96 h-z-[1010] card left-[-320px] overflow-auto h-[900px]">
               <div className="absolute top-[-16px] left-[204px] w-0 h-0 border-x-transparent border-b-white border-t-transparent border-solid border-8"></div>
               {cart?.cart_items?.map((cartItem, index) => {
                 return (
@@ -91,7 +91,7 @@ const Navbar = () => {
               })}
               {noCart && <div className="text-center">Your cart is empty</div>}
               <button
-                className="btn btn-primary btn-block mt-5 uppercase"
+                className="btn btn-primary btn-block mt-5 uppercase text-white"
                 onClick={() => router.push("/cart")}
               >
                 View Cart

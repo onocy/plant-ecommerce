@@ -21,7 +21,7 @@ export const MessageProvider = ({ children }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMessage(null);
-    }, 2000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [message]);
