@@ -25,7 +25,10 @@ const SignIn = () => {
     if (error) {
       setErrorText(error.message);
     } else if (data) {
+      localStorage.setItem("message", "Sign-in successful!");
+
       setUser(data.user);
+
       router.push("/"); // Redirect to home page
     } else {
       console.error("Sign-in error: An unexpected error occurred");
@@ -48,7 +51,7 @@ const SignIn = () => {
         onSubmit={handleSignIn}
         className="flex flex-col w-96 min-w-fit rounded-xl bg-white p-10 gap-3 items-center z-10"
       >
-        <Link href="/" className="flex items-center">
+        <a href="/" className="flex items-center">
           <Image
             src="/logo_ii.svg"
             width="50"
@@ -57,8 +60,11 @@ const SignIn = () => {
             alt=""
           />
           <span className="ml-2 mt-3 text-4xl uppercase pr-3">Rośliny</span>
-        </Link>
-        <div>{errorText}</div>
+        </a>
+        <div className="text-red-400">
+          {errorText}
+          {errorText && <div className="text-center">Please try again.</div>}
+        </div>
         <input
           type="email"
           placeholder="Email"

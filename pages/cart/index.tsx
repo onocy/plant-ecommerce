@@ -4,7 +4,6 @@ import { supabase } from "../../utils/supabase";
 
 const CartRoot = () => {
   const { plants } = usePlants();
-  console.log(plants);
 
   return (
     <>
