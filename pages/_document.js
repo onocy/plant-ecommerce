@@ -15,6 +15,7 @@ export default function Document() {
           as="image"
           href="/images/sign_in_background.png"
         ></link>
+        <link href="/dist/output.css" rel="stylesheet" />
       </Head>
       <body>
         <Main />
