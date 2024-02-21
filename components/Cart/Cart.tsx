@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import { useCart } from "contexts/cartContext";
+import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
 
 const Cart = () => {
   const [loading, setLoading] = useState(false);
@@ -29,20 +30,19 @@ const Cart = () => {
     return <>Loading...</>;
   }
 
-  if (cart?.cart_items?.length === 0 || cart === null) {
-    return (
-      <div className="flex justify-center flex-col items-center">
-        <img alt="" src="/images/empty_cart.svg" width={500} height={500} />
-        <div>No items in your cart</div>
-      </div>
-    );
-  }
+  const noCart = cart?.cart_items?.length === 0 || cart === null;
 
   return (
     <>
       <div className="flex flex-wrap gap-3 justify-between mx-3 mt-3">
         <div className="flex-1 card shadow-xl px-5 py-3 gap-3 bg-white divide-y divide-gray-200 h-full">
           {cart?.cart_items?.map((cartItem, index) => {
+            const handleQuantityChange = async (id, newQuantity) => {
+              if (newQuantity < 1) return; // Prevent setting the quantity to less than 1
+              await updateItemQuantity(id, newQuantity);
+              updateCart({ cartId });
+            };
+
             const increaseQuantity = async () => {
               await updateItemQuantity(cartItem.id, cartItem.quantity + 1);
               updateCart({ cartId });
@@ -84,6 +84,12 @@ const Cart = () => {
                       type="number"
                       value={cartItem.quantity}
                       className="mx-2"
+                      onChange={(e) =>
+                        handleQuantityChange(
+                          cartItem.id,
+                          parseInt(e.target.value)
+                        )
+                      }
                       InputProps={{ inputProps: { min: 1 } }}
                     />
                     <Button onClick={increaseQuantity} className="bg-gray-200">
@@ -100,8 +106,14 @@ const Cart = () => {
               </div>
             );
           })}
+          {noCart && (
+            <div className="flex justify-center flex-col items-center">
+              <RemoveShoppingCartIcon className="text-7xl" />
+              <div className="mt-3 text-gray-600">No items in your cart</div>
+            </div>
+          )}
         </div>
-        <div className="flex-1 card shadow-xl p-5 gap-1 m-1 bg-white justify-between h-48">
+        <div className="flex-1 card shadow-xl p-5 gap-1 bg-white justify-between h-48">
           {/* <div className="mb-2 text-lg font-bold">Summary</div> */}
           {/* <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
             <div>Subtotal:</div>
@@ -118,7 +130,7 @@ const Cart = () => {
             <div>${calculateSubtotal()}</div>
           </div>
           <Button
-            className="btn btn-primary"
+            className="btn btn-primary text-white"
             onClick={() => console.log("checkout")}
           >
             Checkout

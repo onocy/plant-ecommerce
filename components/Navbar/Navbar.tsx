@@ -31,6 +31,8 @@ const Navbar = () => {
     }
   }, [cartId]);
 
+  const noCart = cart?.cart_items?.length == 0 || !cart;
+
   return (
     <nav className="flex justify-between p-5 items-center flex-wrap sticky top-0 z-50 backdrop-blur-sm border border-b-gray-50">
       <a href="/" className="flex items-center">
@@ -87,10 +89,7 @@ const Navbar = () => {
                   </div>
                 );
               })}
-              {cart?.cart_items?.length == 0 ||
-                (!cart && (
-                  <div className="text-center">Your cart is empty</div>
-                ))}
+              {noCart && <div className="text-center">Your cart is empty</div>}
               <button
                 className="btn btn-primary btn-block mt-5 uppercase"
                 onClick={() => router.push("/cart")}
