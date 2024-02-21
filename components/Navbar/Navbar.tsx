@@ -60,7 +60,7 @@ const Navbar = () => {
             </Link>
 
             {/* Microcart */}
-            <div className="absolute hidden group-hover:block bg-white text-gray-900 shadow-xl p-4 w-96 h-z-[1010] card left-[-320px] overflow-auto h-[900px]">
+            <div className="absolute hidden group-hover:block bg-white text-gray-900 shadow-xl p-4 w-96 h-z-[1010] card left-[-320px] overflow-auto max-h-[900px]">
               <div className="absolute top-[-16px] left-[204px] w-0 h-0 border-x-transparent border-b-white border-t-transparent border-solid border-8"></div>
               {cart?.cart_items?.map((cartItem, index) => {
                 return (
