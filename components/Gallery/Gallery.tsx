@@ -9,6 +9,8 @@ import { handleAddToCart } from "utils/cart";
 import { useRouter } from "next/router";
 import { useCart } from "contexts/cartContext";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
+import { useMessage } from "contexts/messageContext";
+import { on } from "events";
 
 const SortOptions = {
   PRICE_HIGH_TO_LOW: "Price - High to Low",
@@ -24,6 +26,7 @@ const Gallery = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { updateCart } = useCart();
+  const { setMessage } = useMessage();
 
   const [sortOption, setSortOption] = useState("");
 
@@ -49,6 +52,19 @@ const Gallery = () => {
   };
 
   const sortedPlants = sortPlants(plants, sortOption);
+
+  const onAddToCart = ({ plant }) => {
+    handleAddToCart({
+      user,
+      cartId,
+      plantId: plant?.id,
+      setIsLoading,
+      router,
+      updateCart,
+    });
+    console.log("here");
+    setMessage("Item added to cart");
+  };
 
   return (
     <div className="my-10">
@@ -107,18 +123,7 @@ const Gallery = () => {
                     <Link key={plant.id} href={`/plant/${plant.id}`}>
                       <CropFreeIcon fontSize="large" className="text-white" />
                     </Link>
-                    <button
-                      onClick={() =>
-                        handleAddToCart({
-                          user,
-                          cartId,
-                          plantId: plant?.id,
-                          setIsLoading,
-                          router,
-                          updateCart,
-                        })
-                      }
-                    >
+                    <button onClick={() => onAddToCart({ plant })}>
                       {isLoading ? (
                         <span className="loading loading-spinner"></span>
                       ) : (

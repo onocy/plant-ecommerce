@@ -4,26 +4,10 @@ import Gallery from "@/components/Gallery";
 import HomeCarousel from "@/components/HomeCarousel";
 import { supabase } from "../utils/supabase";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMessage } from "../contexts/messageContext";
 
 export default function Home({ plants }) {
-  const [signInMessage, setSignInMessage] = useState(null);
-
-  useEffect(() => {
-    const message = localStorage.getItem("message");
-
-    if (message) {
-      setSignInMessage(message);
-      localStorage.removeItem("message");
-    }
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSignInMessage(null);
-    }, 4000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const { message } = useMessage();
 
   return (
     <>
@@ -37,7 +21,7 @@ export default function Home({ plants }) {
         <div className="flex flex-col h-screen justify-between relative">
           <div className="fixed bottom-0 right-0 p-4 z-10">
             <AnimatePresence>
-              {signInMessage && (
+              {message && (
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -59,7 +43,7 @@ export default function Home({ plants }) {
                     />
                   </svg>
 
-                  <span>{signInMessage}</span>
+                  <span>{message}</span>
                 </motion.div>
               )}
             </AnimatePresence>

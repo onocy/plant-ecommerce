@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useRouter } from "next/router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { MessageProvider } from "../contexts/messageContext";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -15,28 +16,30 @@ export default function App({ Component, pageProps }) {
   const showBackButton = router.pathname !== "/" && showNavbarAndFooter;
 
   return (
-    <UserProvider>
-      <PlantProvider initialPlants={pageProps.plants}>
-        <CartProvider>
-          <div data-theme="lemonade">
-            <div className="flex flex-col min-h-screen">
-              <div className="flex-grow overflow-auto">
-                {showNavbarAndFooter && <Navbar />}
-                {showBackButton && (
-                  <button
-                    className="btn btn-circle ml-5"
-                    onClick={() => router.back()}
-                  >
-                    <ArrowBackIcon />
-                  </button>
-                )}
-                <Component {...pageProps} />
+    <MessageProvider>
+      <UserProvider>
+        <PlantProvider initialPlants={pageProps.plants}>
+          <CartProvider>
+            <div data-theme="lemonade">
+              <div className="flex flex-col min-h-screen">
+                <div className="flex-grow overflow-auto">
+                  {showNavbarAndFooter && <Navbar />}
+                  {showBackButton && (
+                    <button
+                      className="btn btn-circle ml-5"
+                      onClick={() => router.back()}
+                    >
+                      <ArrowBackIcon />
+                    </button>
+                  )}
+                  <Component {...pageProps} />
+                </div>
+                {showNavbarAndFooter && <Footer />}
               </div>
-              {showNavbarAndFooter && <Footer />}
             </div>
-          </div>
-        </CartProvider>
-      </PlantProvider>
-    </UserProvider>
+          </CartProvider>
+        </PlantProvider>
+      </UserProvider>
+    </MessageProvider>
   );
 }
