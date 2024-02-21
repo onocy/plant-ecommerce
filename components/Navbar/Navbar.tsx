@@ -11,8 +11,8 @@ import { useCart } from "contexts/cartContext";
 const Navbar = () => {
   const router = useRouter();
   const { pathname } = router;
-  const { user, signOut } = useUser();
-  const { cart } = useCart();
+  const { user, signOut, cartId } = useUser();
+  const { cart, updateCart } = useCart();
 
   const cartPath = pathname.includes("/cart");
   const [isOpen, setIsOpen] = useState(false);
@@ -25,16 +25,22 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    if (cartId) {
+      updateCart({ cartId });
+    }
+  }, [cartId]);
+
   return (
     <nav className="flex justify-between p-5 items-center flex-wrap sticky top-0 z-50 backdrop-blur-sm border border-b-gray-50">
-      <Link href="/" className="flex items-center">
+      <a href="/" className="flex items-center">
         <span className="ml-2 text-4xl uppercase pr-3">Rośliny</span>
-        <Image src="/logo_ii.svg" width="50" height="50" className="" alt="" />
-      </Link>
+        <img src="/logo_ii.svg" width="50" height="50" alt="" />
+      </a>
       {/* Desktop Navbar */}
       <div className="hidden sm:flex gap-3 uppercase pt-5 sm:pt-0">
         <div className={pathname == "/" && "underline underline-offset-4"}>
-          <Link href="/">Home</Link>
+          <a href="/">Home</a>
         </div>
         <div className={pathname == "/about" && "underline underline-offset-4"}>
           <Link href="/about">About Us</Link>
@@ -103,12 +109,12 @@ const Navbar = () => {
 
               <div className="absolute hidden group-hover:block bg-white text-gray-900 p-2 w-48 z-10 card shadow-xl left-[-150px]">
                 <div className="absolute top-[-16px] left-[154px] w-0 h-0 border-x-transparent border-b-white border-t-transparent border-solid border-8"></div>
-                <div className="px-4 py-2 hover:bg-gray-200 text-sm">
+                <div className="px-4 py-2 hover:bg-gray-200 text-sm text-wrap">
                   <Link href="/profile">Profile</Link>
                 </div>
 
-                <div className="px-4 py-2 hover:bg-gray-200 text-sm">
-                  <Link href="#" onClick={signOut}>
+                <div className="px-4 py-2 hover:bg-gray-200 text-sm text-wrap">
+                  <Link href="#" onClick={signOut} className="text-wrap">
                     Sign out ({user.email})
                   </Link>
                 </div>
