@@ -32,11 +32,13 @@ const Cart = () => {
 
   const noCart = cart?.cart_items?.length === 0 || cart === null;
 
+  const sortedCartItems = cart?.cart_items.sort((a, b) => a.id - b.id);
+
   return (
     <>
       <div className="flex flex-wrap gap-3 justify-between mx-3 mt-3">
         <div className="flex-1 card shadow-xl px-5 py-3 gap-3 bg-white divide-y divide-gray-200 h-full">
-          {cart?.cart_items?.map((cartItem, index) => {
+          {sortedCartItems?.map((cartItem, index) => {
             const handleQuantityChange = async (id, newQuantity) => {
               if (newQuantity < 1) return; // Prevent setting the quantity to less than 1
               await updateItemQuantity(id, newQuantity);
