@@ -146,17 +146,6 @@ const Cart = () => {
           )}
         </div>
         <div className="flex-1 card shadow-xl p-5 gap-1 bg-white justify-between h-48">
-          {/* <div className="mb-2 text-lg font-bold">Summary</div> */}
-          {/* <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
-            <div>Subtotal:</div>
-            <div>{calculateSubtotal()}</div>
-          </div> */}
-          {/* <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
-            <div>Tax:</div>
-          </div>
-          <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
-            <div>Coupon / Promo Code:</div>
-          </div> */}
           <div className="text-xl font-bold">Order Summary</div>
           <div className="font-bold pb-3 mb-2  flex justify-between">
             <div>Order Total:</div>
@@ -170,26 +159,22 @@ const Cart = () => {
           </Button>
         </div>
       </div>
-      <Dialog open={isDeleteModalOpen} onClose={handleCloseModal}>
-        <DialogTitle>{"Confirm Deletion"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
+
+      <div className={`modal ${isDeleteModalOpen ? "modal-open" : ""}`}>
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">
             Are you sure you want to delete this item from your cart?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button className="btn btn-primary" onClick={handleCloseModal}>
-            Cancel
-          </Button>
-          <Button
-            className="btn btn-secondary"
-            onClick={handleConfirmCloseModal}
-            autoFocus
-          >
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
+          </h3>
+          <div className="modal-action">
+            <button className="btn" onClick={handleCloseModal}>
+              Cancel
+            </button>
+            <button className="btn btn-error" onClick={handleConfirmCloseModal}>
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
