@@ -269,7 +269,7 @@ const Plant = ({ id, reviews }) => {
               </button>
               {isCareOpen && (
                 <div className="p-4 border rounded mt-3 flex flex-col gap-2 flex-wrap">
-                  <div className="flex gap-4 items-center justify-between">
+                  <div className="gap-4 items-center justify-between flex flex-col sm:flex-row">
                     <div className="flex gap-3 items-center">
                       <ThermostatIcon className="text-3xl" />
                       <div className="">Temperature Minimum:</div>
@@ -283,7 +283,7 @@ const Plant = ({ id, reviews }) => {
                       ></progress>
                     </div>
                   </div>
-                  <div className="flex gap-3 items-center justify-between">
+                  <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
                     <div className="flex gap-3 items-center">
                       <ThermostatIcon className="text-3xl" />
                       <div className="">Temperature Maximum:</div>
