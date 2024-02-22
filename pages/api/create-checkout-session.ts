@@ -30,7 +30,7 @@ export default async function handler(
             name: item.plants.name,
             images: [item.plants.images[0]?.url], // Assuming the first image is what you want to use
           },
-          unit_amount: item.plants.price * 100, // Assuming price is in dollars, convert to cents
+          unit_amount: Math.round(item.plants.price * 100), // Assuming price is in dollars, convert to cents
         },
         quantity: item.quantity,
       }));
