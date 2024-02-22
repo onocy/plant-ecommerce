@@ -35,6 +35,7 @@ const Navbar = () => {
 
   return (
     <nav className="flex justify-between p-5 items-center flex-wrap sticky top-0 z-50 backdrop-blur-sm border border-b-gray-50">
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <a href="/" className="flex items-center">
         <span className="ml-2 text-4xl uppercase pr-3">Rośliny</span>
         <img src="/logo_ii.svg" width="50" height="50" alt="" />
@@ -42,6 +43,7 @@ const Navbar = () => {
       {/* Desktop Navbar */}
       <div className="hidden sm:flex gap-3 uppercase pt-5 sm:pt-0">
         <div className={pathname == "/" && "underline underline-offset-4"}>
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a href="/">Home</a>
         </div>
         <div className={pathname == "/about" && "underline underline-offset-4"}>

@@ -4,7 +4,7 @@ import React from "react";
 const Profile: React.FC = () => {
   const { user } = useUser();
 
-  return <div>{user.email}</div>;
+  return <div>{user?.email}</div>;
 };
 
 export default Profile;
