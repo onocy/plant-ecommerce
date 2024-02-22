@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { deleteFromCart, updateItemQuantity } from "utils/cart";
+import {
+  deleteFromCart,
+  handleCreateCheckoutSession,
+  updateItemQuantity,
+} from "utils/cart";
 import { useUser } from "contexts/userContext";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -63,6 +67,7 @@ const Cart = () => {
     <>
       <div className="flex flex-wrap gap-3 justify-between mx-3 mt-3">
         <div className="flex-1 card shadow-xl px-5 py-3 gap-3 bg-white divide-y divide-gray-200 h-full">
+          {/* <div className="text-xl font-bold">Shopping Cart</div> */}
           {sortedCartItems?.map((cartItem, index) => {
             const handleQuantityChange = async (id, newQuantity) => {
               if (newQuantity < 1) return; // Prevent setting the quantity to less than 1
@@ -152,13 +157,14 @@ const Cart = () => {
           <div className="pb-3 mb-2 border-b border-gray-300 flex justify-between">
             <div>Coupon / Promo Code:</div>
           </div> */}
+          <div className="text-xl font-bold">Order Summary</div>
           <div className="font-bold pb-3 mb-2  flex justify-between">
-            <div>Total:</div>
+            <div>Order Total:</div>
             <div>${calculateSubtotal()}</div>
           </div>
           <Button
-            className="btn btn-primary text-white"
-            onClick={() => console.log("checkout")}
+            className="btn btn-primary text-white w-1/2 self-center rounded-3xl"
+            onClick={() => handleCreateCheckoutSession(cartId)}
           >
             Checkout
           </Button>

@@ -1,5 +1,5 @@
-import { useCart } from "contexts/cartContext";
 import { supabase } from "../utils/supabase";
+import stripe, { loadStripe } from "@stripe/stripe-js";
 
 export const fetchCartData = async (cartId: any) => {
   const { data, error } = await supabase
@@ -131,4 +131,39 @@ export const deleteFromCart = async (
   }
 
   return data;
+};
+
+export const handleCreateCheckoutSession = async (cartId) => {
+  try {
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cartId }), // Send the cartId to your endpoint
+    });
+
+    const sessionData = await response.json();
+
+    console.log(sessionData, "response");
+
+    if (response.ok) {
+      // Use Stripe.js to redirect to the checkout page
+      const stripe = await loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+      );
+
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: sessionData.sessionId,
+      });
+
+      if (error) {
+        console.error("Error redirecting to Stripe checkout:", error.message);
+      }
+    } else {
+      throw new Error(sessionData.error || "Failed to create checkout session");
+    }
+  } catch (error) {
+    console.error("Failed to initiate checkout:", error.message);
+  }
 };
