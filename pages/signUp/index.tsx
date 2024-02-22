@@ -31,7 +31,7 @@ const SignUp = () => {
 
       setUser(data.user);
 
-      router.push("/"); // Redirect to home page
+      window.location.href = "/"; // Force SSR
     } else {
       console.error("Sign-up error: An unexpected error occurred");
     }
@@ -53,6 +53,7 @@ const SignUp = () => {
         onSubmit={handleSignUp}
         className="flex flex-col w-96 min-w-fit rounded-xl bg-white p-10 gap-3 items-center z-10"
       >
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" className="flex items-center">
           <Image
             src="/logo_ii.svg"
