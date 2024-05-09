@@ -1,6 +1,6 @@
 # Plant E-Commerce Application (ROŚLINY)
 
-[![Plant E-Commerce](https://img.youtube.com/vi/94SLWUKCIPA/0.jpg)]([https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE](https://www.youtube.com/watch?v=94SLWUKCIPA))
+[![Plant E-Commerce](https://img.youtube.com/vi/94SLWUKCIPA/0.jpg)](https://www.youtube.com/watch?v=94SLWUKCIPA)
 
 
 Core Stack:
